@@ -1,0 +1,13 @@
+# Private config — NEVER push these
+private-config.php
+media-auth.json
+live-status.json
+prayers.json
+sermons.json
+testimonies.json
+subscribers.json
+
+# System files
+.DS_Store
+Thumbs.db
+*.log

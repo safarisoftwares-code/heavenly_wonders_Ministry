@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Panel — Heavenly Wonders Ministry</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root {
+    --bg: #f4f7f4; --card: #ffffff; --text: #1e2f2e; --border: #e2ede4;
+    --primary: #2c6e49; --action: #3d9970; --gold: #c9a227; --pale: #e8f5ee;
+    --danger: #c0392b; --radius: 12px;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+.header { background: linear-gradient(135deg, #1e4620 0%, #2c6e49 60%, #3d9970 100%); color: #fff; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 50; }
+.header h1 { font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+.header h1 .badge { background: var(--gold); color: #1e2f2e; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 800; letter-spacing: 0.5px; }
+.logout-btn { background: rgba(192,57,43,0.9); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 0.55rem 1.1rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.logout-btn:hover { background: #c0392b; }
+.login-wrap { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 60px); padding: 1.5rem; background: linear-gradient(135deg, #2c6e49 0%, #1e4620 100%); }
+.login-card { background: #fff; border-radius: 16px; padding: 2.5rem 2rem; max-width: 400px; width: 100%; text-align: center; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.login-card h2 { color: var(--primary); margin-bottom: 0.4rem; font-size: 1.5rem; }
+.login-card p { color: #6b7d73; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.login-card .pw-wrap { position: relative; }
+.login-card input { width: 100%; padding: 0.8rem 2.6rem 0.8rem 1rem; border: 2px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 1rem; }
+.login-card input:focus { outline: none; border-color: var(--gold); }
+.eye-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 0.3rem; }
+.login-card button.primary { width: 100%; margin-top: 1rem; padding: 0.8rem; background: var(--primary); color: #fff; border: 2px solid var(--gold); border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1rem; }
+.login-card button.primary:hover { background: var(--action); }
+#loginMsg { margin-top: 0.8rem; font-size: 0.9rem; min-height: 1.2em; }
+.container { max-width: 1280px; margin: 0 auto; padding: 1.25rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+.card h2 { color: var(--primary); font-size: 1.05rem; margin-bottom: 0.85rem; padding-bottom: 0.45rem; border-bottom: 2px solid var(--gold); }
+label { display: block; font-weight: 600; margin-bottom: 0.3rem; margin-top: 0.75rem; font-size: 0.85rem; }
+label:first-of-type { margin-top: 0; }
+input[type=text], input[type=url], input[type=number] { width: 100%; padding: 0.6rem 0.85rem; border: 2px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.92rem; background: #fff; }
+input:focus { outline: none; border-color: var(--gold); }
+button.act { padding: 0.65rem 1.15rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 0.9rem; border: 2px solid var(--gold); }
+button.go { background: var(--danger); color: #fff; }
+button.go:hover { background: #a93226; }
+button.go.is-live { background: var(--action); cursor: default; }
+button.end { background: #555; color: #fff; }
+button.end:hover { background: #333; }
+button.end:disabled { background: #bbb; cursor: not-allowed; }
+button.save { background: var(--primary); color: #fff; }
+button.save:hover { background: var(--action); }
+
+.main-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: stretch; margin-bottom: 1rem; }
+.main-row > .card { min-height: 480px; display: flex; flex-direction: column; }`n@media (max-width: 900px) { .main-row { grid-template-columns: 1fr; } .main-row > .card { min-height: auto; } }
+.btn-pair { display: flex; gap: 0.5rem; margin-top: 0.35rem; }
+.btn-pair button.act { flex: 1; padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+/* SOURCE ROWS */
+.src-row { display: grid; grid-template-columns: 1fr; gap: 0.4rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+.src-row:last-child { border-bottom: none; }
+.src-name { font-weight: 800; color: var(--primary); font-size: 0.95rem; padding-bottom: 0.55rem; display: flex; align-items: center; gap: 0.4rem; }
+.src-name .dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; display: inline-block; }
+.src-name .dot.live { background: #e74c3c; animation: pulse 1.5s infinite; }
+@media (max-width: 700px) {
+    .src-row { grid-template-columns: 1fr 1fr; }
+    .src-name { grid-column: 1 / -1; padding-bottom: 0; }
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* PREVIEW */
+.preview-tabs { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+.preview-tab { flex: 1; padding: 0.55rem 1rem; background: var(--pale); border: 1px solid var(--border); border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 0.88rem; color: var(--primary); transition: all 0.2s; }
+.preview-tab:hover { border-color: var(--gold); }
+.preview-tab.active { background: var(--primary); color: #fff; border-color: var(--gold); }
+.preview-tab.has-live::after { content: ' ●'; color: #e74c3c; }
+.preview-frame { width: 100%; aspect-ratio: 16/9; border: 2px solid var(--border); border-radius: 10px; background: #000; overflow: hidden; }
+.preview-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.preview-empty { width: 100%; aspect-ratio: 16/9; border: 2px dashed var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #8a9b91; font-size: 0.9rem; text-align: center; padding: 1rem; background: #fafdfb; }
+.msg { margin-top: 0.7rem; font-size: 0.88rem; min-height: 1.2em; font-weight: 600; }
+.hint { font-size: 0.78rem; color: #6b7d73; margin-top: 0.25rem; }
+.settings-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 720px) { .settings-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Media Panel <span class="badge">ICT / TV TEAM</span></h1>
+    <button class="logout-btn" id="logoutBtn" style="display:none;" onclick="doLogout()">Logout</button>
+</div>
+
+<style>
+/* Pure Neumorphism */
+.neu-input { box-sizing: border-box !important; transition: all 0.3s ease; }
+.neu-input:focus { box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff !important; }
+.neu-btn { transition: all 0.2s ease; }
+.neu-btn:hover { box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff !important; transform: translateY(-2px); }
+.neu-btn:active { box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff !important; transform: translateY(0); }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<div id="loginScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #eef2f5; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 9999;">
+    <!-- Background Raised Circles -->
+    <div style="position: absolute; top: 8%; left: 8%; width: 140px; height: 140px; background: #eef2f5; border-radius: 50%; box-shadow: 20px 20px 40px #b8c2cc, -20px -20px 40px #ffffff;"></div>
+    <div style="position: absolute; bottom: 12%; right: 10%; width: 90px; height: 90px; background: #eef2f5; border-radius: 50%; box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff;"></div>
+    
+    <!-- Raised Modal Card -->
+    <div style="position: relative; background: #eef2f5; border-radius: 40px; padding: 3.5rem 2.5rem; width: 100%; max-width: 380px; text-align: center; box-shadow: 25px 25px 50px #b8c2cc, -25px -25px 50px #ffffff; z-index: 1;">
+        
+        <!-- Raised Icon Area -->
+        <div style="width: 100px; height: 100px; background: #eef2f5; border-radius: 50%; margin: 0 auto 2rem auto; display: flex; align-items: center; justify-content: center; box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff;">
+            <img src="images/angel-icon.png" alt="Heavenly Wonders" style="width: 60px; height: 60px; border-radius: 50%;">
+        </div>
+        
+        <h2 style="color: #2b3a4a; font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: 0.5px;">Media Team</h2>
+        <p style="color: #7a8b9a; font-size: 0.9rem; margin-bottom: 2.5rem;">Login to control the stream</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
+            <div>
+                <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #7a8b9a; margin-bottom: 0.5rem; margin-left: 1rem;">Media Password</label>
+                <div style="position: relative; width: 100%;">
+                    <!-- Password Area: Sunken -->
+                    <input type="password" id="loginPass" class="neu-input" placeholder="Enter password" style="width: 100%; padding: 1.2rem 3rem 1.2rem 1.5rem; background: #eef2f5; border: none; border-radius: 20px; font-size: 1rem; font-family: inherit; color: #2b3a4a; outline: none; box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff;" autocomplete="current-password">
+                    <button class="eye-btn" type="button" onclick="togglePass()" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #7a8b9a; transition: color 0.2s;">&#128065;</button>
+                </div>
+            </div>
+            
+            <!-- Login Area: Raised Button -->
+            <button onclick="doLogin()" class="neu-btn" style="width: 100%; padding: 1.2rem; margin-top: 1rem; background: #eef2f5; color: #2c6e49; border: none; border-radius: 20px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 8px 8px 16px #b8c2cc, -8px -8px 16px #ffffff;">
+                Login
+            </button>
+        </div>
+        
+        <div id="loginMsg" style="margin-top: 1rem; font-size: 0.9rem; min-height: 1.2em; font-weight: 700;"></div>
+    </div>
+</div>
+<div id="panelScreen" class="container" style="display:none;">
+
+    <div class="main-row">
+    <div class="card" style="margin-bottom:0;">
+        <h2>Source Control — Independent Go Live / End Live</h2>
+        <p class="hint" style="margin-bottom:0.5rem;">Each source goes live independently. Turn on any combination. End one without affecting the others.</p>
+
+        <div class="src-row" data-src="youtube">
+            <div class="src-name"><span class="dot" id="dot-youtube"></span>YouTube</div>
+            <input type="url" id="url-youtube" placeholder="https://www.youtube.com/watch?v=...">
+            <div class="btn-pair">
+                <button class="act go" id="go-youtube" onclick="goLive('youtube')">&#128308; Go Live</button>
+                <button class="act end" id="end-youtube" onclick="endLive('youtube')" disabled>&#9209; End</button>
+            </div>
+        </div>
+
+        <div class="src-row" data-src="facebook">
+            <div class="src-name"><span class="dot" id="dot-facebook"></span>Facebook</div>
+            <input type="url" id="url-facebook" placeholder="https://www.facebook.com/.../videos/...">
+            <div class="btn-pair">
+                <button class="act go" id="go-facebook" onclick="goLive('facebook')">&#128308; Go Live</button>
+                <button class="act end" id="end-facebook" onclick="endLive('facebook')" disabled>&#9209; End</button>
+            </div>
+        </div>
+
+        <div class="src-row" data-src="tv">
+            <div class="src-name"><span class="dot" id="dot-tv"></span>TV</div>
+            <input type="url" id="url-tv" placeholder="https://tvstation.com/live  or  https://.../stream.m3u8">
+            <div class="btn-pair">
+                <button class="act go" id="go-tv" onclick="goLive('tv')">&#128308; Go Live</button>
+                <button class="act end" id="end-tv" onclick="endLive('tv')" disabled>&#9209; End</button>
+            </div>
+        </div>
+
+        <div id="liveMsg" class="msg"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:0;">
+        <h2>Preview — What Viewers See</h2>
+        <div class="preview-tabs">
+            <button class="preview-tab active" id="tabBtn-youtube" onclick="showPreview('youtube')">YouTube</button>
+            <button class="preview-tab" id="tabBtn-facebook" onclick="showPreview('facebook')">Facebook</button>
+            <button class="preview-tab" id="tabBtn-tv" onclick="showPreview('tv')">TV</button>
+        </div>
+        <div id="preview-youtube" class="preview-empty">Paste a YouTube URL to preview.</div>
+        <div id="preview-facebook" class="preview-empty" style="display:none;">Paste a Facebook URL to preview.</div>
+        <div id="preview-tv" class="preview-empty" style="display:none;">Paste a TV stream URL to preview.</div>
+    </div>
+
+    </div>
+    <div class="card">
+        <h2>Settings</h2>
+        <div class="settings-row">
+            <div>
+                <label style="margin-top:0;">Show "Latest Service" for (hours after end)</label>
+                <input type="number" id="windowHours" min="1" max="720" value="24">
+                <button class="act save" style="margin-top:0.65rem;" onclick="saveWindow()">Save Window</button>
+            </div>
+            <div>
+                <label style="margin-top:0;">Archive URL (link for past services)</label>
+                <input type="url" id="archiveUrl" placeholder="https://www.youtube.com/@HeavenlyWondersMinistry/videos">
+                <button class="act save" style="margin-top:0.65rem;" onclick="saveArchive()">Save Archive Link</button>
+            </div>
+        </div>
+        <div id="setMsg" class="msg"></div>
+    </div>
+
+</div>
+
+<script>
+var mediaPassword = null;
+var activePreview = 'youtube';
+var liveState = { youtube:false, facebook:false, tv:false };
+
+function togglePass() { var p=document.getElementById('loginPass'); p.type = p.type==='password'?'text':'password'; }
+
+function doLogin() {
+    var pass = document.getElementById('loginPass').value;
+    var msg = document.getElementById('loginMsg');
+    if (!pass) { msg.style.color='#c0392b'; msg.textContent='Enter the media password.'; return; }
+    msg.style.color='#6b7d73'; msg.textContent='Checking...';
+    var b = new URLSearchParams(); b.append('password', pass);
+    fetch('check-media-password.php', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            try {
+                var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+                if (d.success) {
+                    mediaPassword = pass;
+                    sessionStorage.setItem('hw_media_pass', pass);
+                    showPanel();
+                } else {
+                    msg.style.color='#c0392b'; msg.textContent = d.message || 'Login failed.';
+                }
+            } catch(e) {
+                msg.style.color='#c0392b'; msg.textContent = 'Login error: ' + t.substring(0,120);
+            }
+        })
+        .catch(function(){ msg.style.color='#c0392b'; msg.textContent='Network error.'; });
+}
+
+function doLogout() {
+    mediaPassword = null;
+    sessionStorage.removeItem('hw_media_pass');
+    document.getElementById('panelScreen').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('logoutBtn').style.display='none';
+    document.getElementById('loginPass').value='';
+}
+
+function showPanel() {
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('panelScreen').style.display='block';
+    document.getElementById('logoutBtn').style.display='inline-block';
+    loadStatus();
+}
+
+function toYoutubeEmbed(url) {
+    if (!url) return '';
+    var m = url.match(/(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    if (!m) return '';
+    return 'https://www.youtube.com/embed/' + m[1] + '?autoplay=0';
+}
+
+function toFacebookEmbed(url) {
+    if (!url) return '';
+    return 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=false&width=560';
+}
+
+function showPreview(which) {
+    activePreview = which;
+    ['youtube','facebook','tv'].forEach(function(k){
+        document.getElementById('tabBtn-'+k).classList.toggle('active', k===which);
+        document.getElementById('preview-'+k).style.display = (k===which) ? '' : 'none';
+    });
+}
+
+function renderPreviews() {
+    ['youtube','facebook','tv'].forEach(function(k){
+        var url = document.getElementById('url-'+k).value.trim();
+        var box = document.getElementById('preview-'+k);
+        if (!url) {
+            box.className = 'preview-empty';
+            box.innerHTML = 'Paste a ' + k + ' URL to preview.';
+            return;
+        }
+        if (k === 'youtube') {
+            var yt = toYoutubeEmbed(url);
+            if (yt) { box.className='preview-frame'; box.innerHTML = '<iframe src="' + yt + '" allow="autoplay; encrypted-media" allowfullscreen></iframe>'; }
+            else { box.className='preview-empty'; box.innerHTML='Not a recognized YouTube URL.'; }
+        } else if (k === 'facebook') {
+            box.className='preview-frame';
+            box.innerHTML = '<iframe src="' + toFacebookEmbed(url) + '" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        } else {
+            if (/\.m3u8(\?|$)/i.test(url)) {
+                box.className='preview-frame';
+                box.innerHTML='<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:0.9rem; padding:1rem; text-align:center;">TV HLS stream (.m3u8).<br>Will embed on the public site when hls.js is added.</div>';
+            } else {
+                box.className='preview-frame';
+                box.innerHTML = '<iframe src="' + url + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+            }
+        }
+    });
+}
+
+['youtube','facebook','tv'].forEach(function(k){
+    document.getElementById('url-'+k).addEventListener('input', renderPreviews);
+});
+
+function loadStatus() {
+    fetch('get-live-status.php?t=' + Date.now())
+        .then(function(r){return r.text();})
+        .then(function(t){
+            var d;
+            try { d = JSON.parse(t.replace(/^\uFEFF/, '')); } catch(e) { return; }
+            ['youtube','facebook','tv'].forEach(function(k){
+                var src = d[k] || { live:false, url:'', startedAt:null };
+                liveState[k] = src.live;
+                document.getElementById('url-'+k).value = src.url || '';
+                var dot = document.getElementById('dot-'+k);
+                var goBtn = document.getElementById('go-'+k);
+                var endBtn = document.getElementById('end-'+k);
+                var tab = document.getElementById('tabBtn-'+k);
+                if (src.live) {
+                    dot.className = 'dot live';
+                    goBtn.classList.add('is-live');
+                    goBtn.innerHTML = '&#9989; LIVE';
+                    goBtn.disabled = true;
+                    endBtn.disabled = false;
+                    tab.classList.add('has-live');
+                } else {
+                    dot.className = 'dot';
+                    goBtn.classList.remove('is-live');
+                    goBtn.innerHTML = '&#128308; Go Live';
+                    goBtn.disabled = false;
+                    endBtn.disabled = true;
+                    tab.classList.remove('has-live');
+                }
+            });
+            document.getElementById('windowHours').value = d.windowHours || 24;
+            document.getElementById('archiveUrl').value = d.archiveUrl || '';
+            renderPreviews();
+            // Auto-switch preview tab to first live source
+            var liveSources = ['youtube','facebook','tv'].filter(function(k){ return liveState[k]; });
+            if (liveSources.length > 0 && !liveState[activePreview]) {
+                showPreview(liveSources[0]);
+            }
+        }).catch(function(){});
+}
+
+function postStatus(action, extra) {
+    var b = new URLSearchParams();
+    b.append('password', mediaPassword);
+    b.append('action', action);
+    if (extra) { Object.keys(extra).forEach(function(k){ b.append(k, extra[k]); }); }
+    return fetch('save-live-status.php', {method:'POST', body:b}).then(function(r){return r.text();});
+}
+
+function goLive(k) {
+    var url = document.getElementById('url-'+k).value.trim();
+    var msg = document.getElementById('liveMsg');
+    if (!url) { msg.style.color='#c0392b'; msg.textContent = 'Paste a ' + k + ' URL first.'; return; }
+    msg.style.color='#6b7d73'; msg.textContent = 'Going live on ' + k + '...';
+    postStatus(k + '_go_live', { url: url }).then(function(t){
+        try { var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+            if (d.success) { msg.style.color='#3d9970'; msg.textContent = k + ' is now live.'; loadStatus(); }
+            else { msg.style.color='#c0392b'; msg.textContent = d.message || 'Error.'; }
+        } catch(e) { msg.style.color='#c0392b'; msg.textContent='Error: '+t.substring(0,100); }
+    }).catch(function(){ msg.style.color='#c0392b'; msg.textContent='Network error.'; });
+}
+
+function endLive(k) {
+    if (!confirm('End live on ' + k + '? This only ends ' + k + ' — other sources continue.')) return;
+    var msg = document.getElementById('liveMsg');
+    postStatus(k + '_end_live', {}).then(function(t){
+        try { var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+            if (d.success) { msg.style.color='#3d9970'; msg.textContent = k + ' ended.'; loadStatus(); }
+            else { msg.style.color='#c0392b'; msg.textContent = d.message || 'Error.'; }
+        } catch(e) { msg.style.color='#c0392b'; msg.textContent='Error.'; }
+    });
+}
+
+function saveWindow() {
+    var msg = document.getElementById('setMsg');
+    var h = parseInt(document.getElementById('windowHours').value, 10) || 24;
+    postStatus('update_window', { windowHours: h }).then(function(t){
+        try { var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+            msg.style.color = d.success ? '#3d9970' : '#c0392b'; msg.textContent = d.message || '';
+        } catch(e) { msg.style.color='#c0392b'; msg.textContent='Error.'; }
+    });
+}
+
+function saveArchive() {
+    var msg = document.getElementById('setMsg');
+    postStatus('update_archive', { archiveUrl: document.getElementById('archiveUrl').value.trim() }).then(function(t){
+        try { var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+            msg.style.color = d.success ? '#3d9970' : '#c0392b'; msg.textContent = d.message || '';
+        } catch(e) { msg.style.color='#c0392b'; msg.textContent='Error.'; }
+    });
+}
+
+(function restore() {
+    var saved = sessionStorage.getItem('hw_media_pass');
+    if (saved) { mediaPassword = saved; showPanel(); }
+})();
+</script>
+</body>
+</html>

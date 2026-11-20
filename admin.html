@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Heavenly Wonders Ministry</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #f4f7f4; color: #1e2f2e; padding: 2rem; }
+        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        h1 { color: #2c6e49; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: bold; margin-bottom: 0.5rem; margin-top: 1rem; }
+        input[type="text"], textarea { width: 100%; padding: 0.8rem; border: 1px solid #e2ede4; border-radius: 8px; font-family: inherit; font-size: 1rem; box-sizing: border-box; }
+        button { background: #3d9970; color: #fff; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+        button:hover { background: #34a870; }
+        #status { margin-top: 1rem; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ministry Admin</h1>
+        <p>Update the Notice Board here. Changes appear on the homepage instantly.</p>
+
+        <form id="noticeForm">
+            <label>Admin Password</label>
+            <div style="position: relative; width: 100%;">
+                <input type="password" name="password" id="adminPass" required placeholder="Enter your password..." style="width: 100%; padding: 0.8rem 2.5rem 0.8rem 0.8rem; border: 1px solid #e2ede4; border-radius: 8px; font-family: inherit; font-size: 1rem; box-sizing: border-box; display: block;">
+                <button type="button" id="toggleEye" style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; font-size: 1.2rem; color: #2c6e49; line-height: 1; padding: 0; margin: 0; height: 24px; width: 24px; display: flex; align-items: center; justify-content: center;">👁</button>
+            </div>
+
+            <label>Sunday Service</label>
+            <textarea name="sunday" rows="2" required></textarea>
+
+            <label>Midweek Bible Study</label>
+            <textarea name="midweek" rows="2" required></textarea>
+
+            <label>Prayer Night</label>
+            <textarea name="prayer" rows="2" required></textarea>
+
+            <button type="submit">Save Notices</button>
+            <div id="status"></div>
+        </form>
+    </div>
+
+    <script>
+        // Fetch current notices to pre-fill the form
+        fetch('notices.json')
+            .then(res => res.json())
+            .then(data => {
+                document.querySelector('[name="sunday"]').value = data.sunday || "";
+                document.querySelector('[name="midweek"]').value = data.midweek || "";
+                document.querySelector('[name="prayer"]').value = data.prayer || "";
+            });
+
+        // Handle form submission
+        document.getElementById('noticeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const status = document.getElementById('status');
+            status.textContent = "Saving...";
+            status.style.color = "#1e2f2e";
+
+            fetch('save-notice.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(text => {
+                if (text.includes("Success")) {
+                    status.textContent = "✅ Notices updated successfully!";
+                    status.style.color = "#2c6e49";
+                } else {
+                    status.textContent = "❌ " + text;
+                    status.style.color = "#c0392b";
+                }
+            })
+            .catch(err => {
+                status.textContent = "❌ Error: " + err.message;
+                status.style.color = "#c0392b";
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passField = document.getElementById('adminPass');
+            const eyeBtn = document.getElementById('toggleEye');
+            if (passField && eyeBtn) {
+                eyeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (passField.type === 'password') {
+                        passField.type = 'text';
+                        eyeBtn.textContent = '🙈';
+                    } else {
+                        passField.type = 'password';
+                        eyeBtn.textContent = '👁️';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

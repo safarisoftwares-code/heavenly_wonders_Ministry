@@ -1,0 +1,7 @@
+﻿User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /save-notice.php
+Disallow: /private-config.php
+
+Sitemap: https://heavenlywonders.co.ke/sitemap.xml

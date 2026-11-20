@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Requests — Heavenly Wonders Ministry</title>
+    <style>
+        :root {
+            --bg: #f4f7f4; --card: #ffffff; --text: #1e2f2e; --border: #e2ede4;
+            --primary: #2c6e49; --action: #3d9970; --gold: #c9a227;
+            --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        [data-theme="dark"] { --bg: #1a2520; --card: #25332b; --text: #dfe8e0; --border: #3b5143; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font); color: var(--text); line-height: 1.7; background: var(--bg); padding: 4rem 1.5rem; min-height: 100vh; }
+        .container { max-width: 700px; margin: 0 auto; background: var(--card); padding: 3rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem; }
+        .gold-rule { width: 60px; height: 3px; background: var(--gold); margin: 0 0 1.5rem 0; border-radius: 2px; }
+        p.intro { margin-bottom: 2rem; font-size: 1rem; color: var(--text); }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; margin-top: 1.25rem; color: var(--text); }
+        input, textarea { width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 1rem; background: var(--card); color: var(--text); }
+        input:focus, textarea:focus { outline: none; border-color: var(--action); }
+        textarea { resize: vertical; min-height: 120px; }
+        .hint { font-size: 0.85rem; color: #6b7d73; margin-top: 0.35rem; }
+        button { background: var(--action); color: #ffffff; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 700; font-size: 1.05rem; cursor: pointer; margin-top: 1.5rem; width: 100%; transition: background 0.2s; }
+        button:hover { background: var(--primary); }
+        button:disabled { background: #999; cursor: wait; }
+        .back-link { display: inline-block; margin-top: 2rem; padding: 0.8rem 1.5rem; background: var(--action); color: #fff; border-radius: 8px; font-weight: 600; text-decoration: none; }
+        .back-link:hover { background: var(--primary); }
+        #responseMessage { margin-top: 1rem; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600; display: none; }
+        .success { background: #e8f5ee; color: #2c6e49; }
+        .error { background: #ffe0e0; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prayer Requests</h1>
+        <div class="gold-rule"></div>
+        <p class="intro">"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God." — Philippians 4:6</p>
+        <p class="intro">Our team prays over every request we receive. Please share what is on your heart. You may submit anonymously if you wish.</p>
+
+        <form id="prayerForm">
+            <input type="hidden" name="access_key" value="8200a120-2f3f-45fe-a3f0-aab651d50fb5">
+            <input type="hidden" name="subject" value="New Prayer Request — Heavenly Wonders Ministry">
+            <input type="hidden" name="from_name" value="Heavenly Wonders Prayer Form">
+
+            <label for="name">Your Name <span style="color:#c0392b; font-weight:700;">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+
+            <label>How should we reach you? <span style="color:#c0392b; font-weight:700;">*</span></label>
+            <p class="hint" style="margin-top:0; margin-bottom:0.75rem;">Provide at least one — email or phone number.</p>
+            
+            <input type="email" id="email" name="email" placeholder="Email address (optional if you give a phone)" style="margin-bottom:0.5rem;">
+            <input type="tel" id="phone" name="phone" placeholder="Phone number (optional if you give an email)">
+
+            <label for="church">Current Church <span style="font-weight:400; color:#6b7d73;">(optional)</span></label>
+            <input type="text" id="church" name="church" placeholder="e.g., Neno Evangelism Centre, Nairobi">
+
+            <label for="role">Roles Assigned in Your Church <span style="font-weight:400; color:#6b7d73;">(optional)</span></label>
+            <input type="text" id="role" name="role" placeholder="e.g., Usher, Choir, Youth Leader">
+
+            <label for="request">Your Prayer Request <span style="color:#c0392b; font-weight:700;">*</span></label>
+            <textarea id="request" name="request" required placeholder="Share what you'd like us to pray about..."></textarea>
+            <p class="hint">Your request is private and seen only by the ministry team.</p>
+
+            <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+
+            <button type="submit" class="btn-submit" id="submitBtn">Submit Prayer Request</button>
+            <div id="responseMessage"></div>
+        </form>
+
+        <a href="index.html" class="back-link">← Back to the Ministry</a>
+    </div>
+
+    <script>
+        document.getElementById('prayerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('responseMessage');
+            msg.style.display = 'none';
+
+            const nameVal = document.getElementById('name').value.trim();
+            const emailVal = document.getElementById('email').value.trim();
+            const phoneVal = document.getElementById('phone').value.trim();
+            const requestVal = document.getElementById('request').value.trim();
+
+            // Validation 1: Name required
+            if (!nameVal) {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '⚠️ Please fill in your Name (marked with *) so we know who to pray for.';
+                msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+                return;
+            }
+
+            // Validation 2: At least one contact method
+            if (!emailVal && !phoneVal) {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '⚠️ Please provide at least one way to reach you — either an Email or a Phone number.';
+                msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+                return;
+            }
+
+            // Validation 3: Prayer request required
+            if (!requestVal) {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '⚠️ Please write your Prayer Request before submitting.';
+                msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+                return;
+            }
+
+            // Validation 4: Email format (if provided)
+            if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '⚠️ The email address you entered does not look valid. Please check it and try again.';
+                msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+                return;
+            }
+
+            // Validation 5: Phone format (if provided)
+            if (phoneVal && phoneVal.replace(/\D/g, '').length < 9) {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '⚠️ The phone number you entered looks too short. Please enter a full number (e.g., 0712345678).';
+                msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            const formData = new FormData(this);
+
+            // Step 1: Send via Web3Forms (email delivery)
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    // Step 2: Also save a backup to prayers.json (silently, no error if fails)
+                    fetch('submit-prayer.php', { method: 'POST', body: formData })
+                        .catch(function() { /* silent */ });
+
+                    msg.style.display = 'block';
+                    msg.className = 'success';
+                    msg.textContent = '🙏 Thank you. Your prayer request has been received and our team will pray over it.';
+                    document.getElementById('prayerForm').reset();
+                } else {
+                    msg.style.display = 'block';
+                    msg.className = 'error';
+                    msg.textContent = '❌ ' + (data.message || 'Submission failed. Please try again.');
+                }
+                btn.disabled = false;
+                btn.textContent = 'Submit Prayer Request';
+            })
+            .catch(function() {
+                msg.style.display = 'block';
+                msg.className = 'error';
+                msg.textContent = '❌ Network error. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Submit Prayer Request';
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+

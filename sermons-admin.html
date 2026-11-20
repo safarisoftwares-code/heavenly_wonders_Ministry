@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sermons Admin — Heavenly Wonders Ministry</title>
+<style>
+body { font-family: system-ui, sans-serif; background:#f4f7f4; color:#1e2f2e; padding:2rem; }
+.container { max-width:900px; margin:0 auto; background:#fff; padding:2rem; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.1); }
+h1 { color:#2c6e49; margin-bottom:0.5rem; }
+p { margin-bottom:1.5rem; }
+label { display:block; font-weight:bold; margin-bottom:0.5rem; margin-top:1rem; }
+input, textarea { width:100%; padding:0.8rem; border:1px solid #e2ede4; border-radius:8px; font-family:inherit; font-size:1rem; box-sizing:border-box; }
+textarea { resize:vertical; min-height:100px; }
+button { background:#3d9970; color:#fff; border:none; padding:0.9rem 1.5rem; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer; margin-top:1rem; }
+button:hover { background:#34a870; }
+.sermon-item { background:#f4f7f4; padding:1rem; border-radius:8px; margin-bottom:1rem; border-left:4px solid #c9a227; }
+.sermon-item strong { color:#2c6e49; }
+.delete-btn { background:#c0392b; padding:0.5rem 1rem; font-size:0.85rem; margin-top:0.5rem; }
+.delete-btn:hover { background:#a93226; }
+#status { margin-top:1rem; text-align:center; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Sermons Admin</h1>
+<p>Add, edit, or delete sermons that appear on the public sermons page.</p>
+
+<form id="sermonForm">
+    <label>Admin Password</label>
+    <input type="password" name="password" required placeholder="Enter password...">
+
+    <label>Topic (e.g., Walking in Victory)</label>
+    <input type="text" name="topic" required placeholder="Sermon topic">
+
+    <label>Scripture Verse (e.g., 1 Corinthians 15:57)</label>
+    <input type="text" name="verse" required placeholder="Scripture reference">
+
+    <label>Explanation / Summary</label>
+    <textarea name="explanation" required placeholder="Write the explanation here..."></textarea>
+
+    <label>YouTube Video Link (optional)</label>
+    <input type="url" name="youtube" placeholder="https://youtu.be/...">
+    
+    <label>Date (optional)</label>
+    <input type="text" name="date" placeholder="e.g., 17 November 2026">
+
+    <button type="submit">Save Sermon</button>
+    <div id="status"></div>
+</form>
+
+<h2 style="margin-top:2rem; color:#2c6e49;">Current Sermons</h2>
+<div id="currentSermons">Loading...</div>
+</div>
+
+<script>
+fetch('get-sermons.php?t=' + new Date().getTime())
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        const list = document.getElementById('currentSermons');
+        if (!data || data.length === 0) {
+            list.innerHTML = '<p style="color:#6b7d73;">No sermons yet. Add one above.</p>';
+            return;
+        }
+        let html = '';
+        data.forEach(function(s, i) {
+            html += '<div class="sermon-item">';
+            html += '<strong>' + escapeHtml(s.topic) + '</strong><br>';
+            html += '<em>' + escapeHtml(s.verse) + '</em><br>';
+            html += '<small>' + escapeHtml(s.explanation).substring(0, 100) + '...</small><br>';
+            html += '<button class="delete-btn" onclick="deleteSermon(' + i + ')">🗑 Delete</button>';
+            html += '</div>';
+        });
+        list.innerHTML = html;
+    });
+
+document.getElementById('sermonForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const status = document.getElementById('status');
+    status.textContent = 'Saving...';
+    status.style.color = '#1e2f2e';
+
+    fetch('save-sermon.php?action=add', { method: 'POST', body: formData })
+        .then(function(res) { return res.text(); })
+        .then(function(text) {
+            status.textContent = text;
+            status.style.color = text.indexOf('Success') !== -1 ? '#2c6e49' : '#c0392b';
+            if (text.indexOf('Success') !== -1) {
+                setTimeout(function() { location.reload(); }, 1000);
+            }
+        })
+        .catch(function() { status.textContent = 'Error saving.'; status.style.color = '#c0392b'; });
+});
+
+function deleteSermon(index) {
+    if (!confirm('Delete this sermon?')) return;
+    const password = document.querySelector('[name="password"]').value;
+    const formData = new URLSearchParams();
+    formData.append('password', password);
+    formData.append('index', index);
+
+    fetch('save-sermon.php?action=delete', { method: 'POST', body: formData })
+        .then(function(res) { return res.text(); })
+        .then(function() { location.reload(); });
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+</script>
+</body>
+</html>
+
+

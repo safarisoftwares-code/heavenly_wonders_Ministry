@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sermons — Heavenly Wonders Ministry</title>
+<style>
+:root { --bg:#f4f7f4; --card:#ffffff; --text:#1e2f2e; --border:#e2ede4; --primary:#2c6e49; --action:#3d9970; --gold:#c9a227; --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family: var(--font); color: var(--text); line-height:1.7; background: var(--bg); padding:4rem 1.5rem; min-height:100vh; }
+.container { max-width:900px; margin:0 auto; }
+h1 { color: var(--primary); font-size:2.25rem; margin-bottom:0.5rem; text-align:center; }
+.subtitle { text-align:center; color:#6b7d73; margin-bottom:2rem; font-size:1.05rem; }
+.gold-rule { width:60px; height:3px; background: var(--gold); margin:0 auto 2.5rem auto; border-radius:2px; }
+.sermon-grid { display:grid; grid-template-columns:1fr; gap:1.5rem; }
+.sermon-card { background: var(--card); border-radius:12px; padding:2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border-left:4px solid var(--gold); }
+.sermon-topic { color: var(--primary); font-size:1.4rem; font-weight:700; margin-bottom:0.25rem; }
+.sermon-verse { color: var(--gold); font-weight:600; font-size:0.95rem; margin-bottom:1rem; font-style:italic; }
+.sermon-explain { color: var(--text); font-size:1rem; line-height:1.8; }
+.sermon-date { color:#6b7d73; font-size:0.85rem; margin-top:1rem; border-top:1px solid var(--border); padding-top:0.75rem; }
+.empty-state { text-align:center; padding:3rem; background: var(--card); border-radius:12px; color:#6b7d73; font-style:italic; }
+.back-link { display:inline-block; margin-top:2rem; padding:0.8rem 1.5rem; background: var(--action); color:#fff; border-radius:8px; font-weight:600; text-decoration:none; }
+.back-link:hover { background: var(--primary); }
+@media (min-width: 768px) { .sermon-grid { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Sunday Sermons</h1>
+<div class="gold-rule"></div>
+<p class="subtitle">"Faith comes by hearing, and hearing by the word of God." — Romans 10:17</p>
+<div id="sermonList" class="sermon-grid">
+    <div class="empty-state">Loading sermons...</div>
+</div>
+<div style="text-align:center;">
+    <a href="index.html" class="back-link">← Back to the Ministry</a>
+</div>
+</div>
+
+<script>
+fetch('get-sermons.php?t=' + new Date().getTime())
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        const list = document.getElementById('sermonList');
+        if (!data || data.length === 0) {
+            list.innerHTML = '<div class="empty-state">🙏 Sermons are coming soon. Please check back.</div>';
+            return;
+        }
+        let html = '';
+        data.forEach(function(sermon) {
+            html += '<div class="sermon-card">';
+            html += '<div class="sermon-topic">' + escapeHtml(sermon.topic) + '</div>';
+            html += '<div class="sermon-verse">' + escapeHtml(sermon.verse) + '</div>';
+            html += '<div class="sermon-explain">' + escapeHtml(sermon.explanation).replace(/\n/g, '<br>') + '</div>';
+            if (sermon.youtube) {
+                html += '<div style="margin-top:1rem;"><a href="' + escapeHtml(sermon.youtube) + '" target="_blank" style="display:inline-flex; align-items:center; gap:8px; padding:0.65rem 1.25rem; background:#2c6e49; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.95rem;">▶ Watch on YouTube</a></div>';
+            }
+            if (sermon.date) {
+                html += '<div class="sermon-date">📅 ' + escapeHtml(sermon.date) + '</div>';
+            }
+            html += '</div>';
+        });
+        list.innerHTML = html;
+    })
+    .catch(function() {
+        document.getElementById('sermonList').innerHTML = '<div class="empty-state">🙏 Sermons are coming soon. Please check back.</div>';
+    });
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+</script>
+</body>
+</html>
+
+

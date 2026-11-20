@@ -1,0 +1,21 @@
+﻿{
+  "name": "Heavenly Wonders Ministry",
+  "short_name": "Heavenly Wonders",
+  "description": "Teaching Scripture. Equipping Believers. Walking in Victory.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a2520",
+  "theme_color": "#2c6e49",
+  "icons": [
+    {
+      "src": "images/angel-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/angel-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

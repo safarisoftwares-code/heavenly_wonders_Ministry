@@ -1,0 +1,27 @@
+﻿[
+  {
+    "category": "SERVICE",
+    "title": "Sunday Service",
+    "text": "Join us every Sunday at 10:00 AM for worship and the Word."
+  },
+  {
+    "category": "STUDY",
+    "title": "Midweek Bible Study",
+    "text": "Wednesdays at 6:00 PM. Bring your Bible and a friend."
+  },
+  {
+    "category": "PRAYER",
+    "title": "Prayer Night",
+    "text": "Last Friday of every month at 8:00 PM."
+  },
+  {
+    "category": "WELCOME",
+    "title": "New Members",
+    "text": "Welcome to the Heavenly Wonders family! We are glad you are here."
+  },
+  {
+    "category": "JOBS",
+    "title": "Job Vacancy",
+    "text": "Heavenly Wonders is looking for a part-time administrator. Contact us for details."
+  }
+]

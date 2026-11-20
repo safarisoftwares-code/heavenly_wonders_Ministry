@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+</html>
+</body>
+<style>
+/* Neumorphic Login Styles */
+.neu-btn { transition: all 0.2s ease; }
+.neu-btn:hover { background: #3b8b5e !important; box-shadow: inset 6px 6px 15px rgba(0,0,0,0.2) !important; transform: scale(0.98); }
+.neu-input:focus { box-shadow: inset 10px 10px 20px #c5cbd0, inset -10px -10px 20px #ffffff !important; }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<style>
+/* Neumorphic Login Styles */
+.neu-btn { transition: all 0.3s ease; }
+.neu-btn:hover { color: #2c6e49 !important; background: linear-gradient(135deg, #ffffff 0%, #eef2f5 100%) !important; box-shadow: 8px 8px 20px #c5cbd0, -8px -8px 20px #ffffff, inset 0 0 0 2px #2c6e49 !important; }
+.neu-input { box-sizing: border-box !important; transition: all 0.3s ease; }
+.neu-input:focus { box-shadow: inset 10px 10px 20px #c5cbd0, inset -10px -10px 20px #ffffff !important; }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<style>
+/* Neumorphic Login Styles */
+.neu-btn { transition: all 0.3s ease; }
+.neu-btn:hover { color: #2c6e49 !important; background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%) !important; box-shadow: 8px 8px 20px #b8c0c8, -8px -8px 20px #ffffff, inset 0 0 0 2px #2c6e49 !important; transform: scale(0.98); }
+.neu-input { box-sizing: border-box !important; transition: all 0.3s ease; }
+.neu-input:focus { box-shadow: inset 10px 10px 20px #b8c0c8, inset -10px -10px 20px #ffffff !important; }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<style>
+/* Neumorphic 3D Styles */
+.neu-input { box-sizing: border-box !important; transition: all 0.3s ease; }
+.neu-input:focus { box-shadow: inset 12px 12px 24px #b0b8c0, inset -12px -12px 24px #ffffff !important; }
+.neu-btn { transition: all 0.2s ease; }
+.neu-btn:hover { color: #2c6e49 !important; box-shadow: 8px 8px 20px #a0a8b0, -8px -8px 20px #ffffff, inset 0 0 0 2px #2c6e49 !important; transform: scale(0.98); }
+.neu-btn:active { box-shadow: inset 8px 8px 16px #a0a8b0, inset -8px -8px 16px #ffffff !important; }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<style>
+/* Pure Neumorphism */
+.neu-input { box-sizing: border-box !important; transition: all 0.3s ease; }
+.neu-input:focus { box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff !important; }
+.neu-btn { transition: all 0.2s ease; }
+.neu-btn:hover { box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff !important; transform: translateY(-2px); }
+.neu-btn:active { box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff !important; transform: translateY(0); }
+.eye-btn:hover { color: #2c6e49 !important; }
+</style>
+<div id="loginScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #eef2f5; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 9999;">
+    <!-- Background Raised Circles -->
+    <div style="position: absolute; top: 8%; left: 8%; width: 140px; height: 140px; background: #eef2f5; border-radius: 50%; box-shadow: 20px 20px 40px #b8c2cc, -20px -20px 40px #ffffff;"></div>
+    <div style="position: absolute; bottom: 12%; right: 10%; width: 90px; height: 90px; background: #eef2f5; border-radius: 50%; box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff;"></div>
+    
+    <!-- 1. Raised Modal Card -->
+    <div style="position: relative; background: #eef2f5; border-radius: 40px; padding: 3.5rem 2.5rem; width: 100%; max-width: 380px; text-align: center; box-shadow: 25px 25px 50px #b8c2cc, -25px -25px 50px #ffffff; z-index: 1;">
+        
+        <!-- 2. Raised Icon Area -->
+        <div style="width: 100px; height: 100px; background: #eef2f5; border-radius: 50%; margin: 0 auto 2rem auto; display: flex; align-items: center; justify-content: center; box-shadow: 12px 12px 24px #b8c2cc, -12px -12px 24px #ffffff;">
+            <img src="images/angel-icon.png" alt="Heavenly Wonders" style="width: 60px; height: 60px; border-radius: 50%;">
+        </div>
+        
+        <h2 style="color: #2b3a4a; font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: 0.5px;">Welcome</h2>
+        <p style="color: #7a8b9a; font-size: 0.9rem; margin-bottom: 2.5rem;">Login to continue your journey</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
+            <div>
+                <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #7a8b9a; margin-bottom: 0.5rem; margin-left: 1rem;">Admin Password</label>
+                <div style="position: relative; width: 100%;">
+                    <!-- Password Area: Sunken -->
+                    <input type="password" id="loginPass" class="neu-input" placeholder="Enter password" style="width: 100%; padding: 1.2rem 3rem 1.2rem 1.5rem; background: #eef2f5; border: none; border-radius: 20px; font-size: 1rem; font-family: inherit; color: #2b3a4a; outline: none; box-shadow: inset 8px 8px 16px #b8c2cc, inset -8px -8px 16px #ffffff;" autocomplete="current-password">
+                    <button class="eye-btn" type="button" onclick="togglePass()" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #7a8b9a; transition: color 0.2s;">&#128065;</button>
+                </div>
+            </div>
+            
+            <!-- 3. Login Area: Raised Button -->
+            <button onclick="doLogin()" class="neu-btn" style="width: 100%; padding: 1.2rem; margin-top: 1rem; background: #eef2f5; color: #2c6e49; border: none; border-radius: 20px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 8px 8px 16px #b8c2cc, -8px -8px 16px #ffffff;">
+                Login
+            </button>
+        </div>
+        
+        <div id="loginMsg" style="margin-top: 1rem; font-size: 0.9rem; min-height: 1.2em; font-weight: 700;"></div>
+    </div>
+</div>
+<div id="dashScreen" style="display:none;">
+    <div class="header">
+        <h1><img src="images/angel-icon.png" alt=""> Heavenly Wonders Admin</h1>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('notices',this)">&#128226; Notices</button>
+        <button class="tab-btn" onclick="showTab('sermons',this)">&#128221; Sermons</button>
+        <button class="tab-btn" onclick="showTab('testimonies',this)">&#10013; Testimonies</button>
+        <button class="tab-btn" onclick="showTab('prayers',this)">&#128591; Prayers</button>
+        <button class="tab-btn" onclick="showTab('subscribers',this)">&#128231; Subscribers</button>
+        <button class="tab-btn" onclick="showTab('media',this)">&#127909; Media Access</button>
+    </div>
+    <div class="tab-content">
+        <div id="tab-notices" class="tab-panel active">
+            <h2 class="panel-title">Notice Board</h2>
+            
+            <!-- SUB-TABS -->
+            <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; border-bottom:2px solid #e2ede4; padding-bottom:0.75rem;">
+                <button class="tab-btn active" id="notice-add-btn" onclick="showNoticeSub('add')" style="font-size:0.9rem;">➕ Add Notice</button>
+                <button class="tab-btn" id="notice-manage-btn" onclick="showNoticeSub('manage')" style="font-size:0.9rem;">📋 Manage Notices</button>
+            </div>
+
+            <!-- ADD NOTICE FORM -->
+            <div id="notice-add-panel">
+                <label>Category (optional — e.g., SERVICE, WELCOME, JOBS)</label>
+                <input type="text" id="notice-category" placeholder="e.g., SERVICE, WELCOME, JOBS">
+                <label>Title *</label>
+                <input type="text" id="notice-title" placeholder="e.g., Sunday Service">
+                <label>Text *</label>
+                <textarea id="notice-text" placeholder="e.g., Join us every Sunday at 10:00 AM for worship and the Word."></textarea>
+                <button class="primary" onclick="addNotice()">Save Notice</button>
+                <div id="noticeMsg" class="msg"></div>
+            </div>
+
+            <!-- MANAGE NOTICES PANEL -->
+            <div id="notice-manage-panel" style="display:none;">
+                <p style="margin-bottom:1rem; color:#6b7d73;">All current notices. Click Delete to remove one, or Clear All to remove everything.</p>
+                <div id="noticeManageList"><div class="empty">Loading...</div></div>
+                <button class="btn-delete" style="margin-top:1rem; width:100%;" onclick="deleteAllNotices()">🗑 Clear All Notices</button>
+            </div>
+        </div>
+        <div id="tab-sermons" class="tab-panel">
+            <h2 class="panel-title">Sermons</h2>
+            <div class="grid2">
+                <div>
+                    <label>Topic</label><input type="text" id="ser-topic">
+                    <label>Verse</label><input type="text" id="ser-verse">
+                    <label>Explanation</label><textarea id="ser-explain"></textarea>
+                    <label>YouTube (optional)</label><input type="url" id="ser-youtube">
+                    <label>Date (optional)</label><input type="text" id="ser-date">
+                    <button class="primary" onclick="addSermon()">Add Sermon</button>
+                    <div id="serMsg" class="msg"></div>
+                </div>
+                <div>
+                    <h3 style="color:var(--primary);margin-bottom:.75rem;">Current Sermons</h3>
+                    <div id="sermonList"><div class="empty">Loading...</div></div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-testimonies" class="tab-panel">
+            <h2 class="panel-title">Testimonies</h2>
+            <div id="testimonyList"><div class="empty">Loading...</div></div>
+        </div>
+        <div id="tab-prayers" class="tab-panel">
+            <h2 class="panel-title">Prayer Requests</h2>
+            <div id="prayerList"><div class="empty">Loading...</div></div>
+        </div>
+        <div id="tab-subscribers" class="tab-panel">
+            <h2 class="panel-title">Newsletter Subscribers</h2>
+            <div id="subsList"><div class="empty">Loading...</div></div>
+        </div>
+        <div id="tab-media" class="tab-panel">
+            <h2 class="panel-title">Media Access</h2>
+
+            <div style="background:#e8f5ee; border-left:4px solid #c9a227; padding:1rem 1.25rem; border-radius:8px; margin-bottom:1.5rem;">
+                <strong style="color:#2c6e49;">Media Team Panel</strong>
+                <p style="margin-top:0.35rem; font-size:0.9rem; color:#1e2f2e;">The media team uses a separate panel to go live and manage the stream.</p>
+                <p style="margin-top:0.5rem;"><a href="media.html" target="_blank" style="color:#2c6e49; font-weight:700; text-decoration:underline;">Open Media Panel →</a></p>
+            </div>
+
+            <div style="margin-bottom:1.5rem;">
+                <h3 style="color:#2c6e49; font-size:1.05rem; margin-bottom:0.5rem;">Password Status</h3>
+                <p id="mediaPassStatus" style="font-size:0.95rem; color:#6b7d73;">Checking...</p>
+            </div>
+
+            <div style="border-top:1px solid #e2ede4; padding-top:1.25rem; margin-bottom:1.5rem;">
+                <h3 style="color:#2c6e49; font-size:1.05rem; margin-bottom:0.5rem;">Generate New Password</h3>
+                <p style="font-size:0.88rem; color:#6b7d73; margin-bottom:0.75rem;">Creates a strong random password (8+ chars, upper, lower, number, symbol). The old password stops working immediately.</p>
+                <button class="primary" onclick="genMediaPass()">🔄 Generate New Password</button>
+            </div>
+
+            <div style="border-top:1px solid #e2ede4; padding-top:1.25rem; margin-bottom:1.5rem;">
+                <h3 style="color:#2c6e49; font-size:1.05rem; margin-bottom:0.5rem;">Set Custom Password</h3>
+                <p style="font-size:0.88rem; color:#6b7d73; margin-bottom:0.75rem;">Must be at least 8 characters and include uppercase, lowercase, number, and symbol (no spaces).</p>
+                <label>New Media Password</label>
+                <input type="text" id="mediaCustomPass" placeholder="e.g. Media2026!">
+                <button class="primary" style="margin-top:0.75rem;" onclick="saveMediaPass()">💾 Save Custom Password</button>
+            </div>
+
+            <div id="mediaResult" style="display:none; background:#fffbe6; border:2px solid #c9a227; border-radius:8px; padding:1.25rem; margin-top:1rem;">
+                <h3 style="color:#2c6e49; font-size:1rem; margin-bottom:0.5rem;">⚠️ New Password — Copy Now</h3>
+                <p style="font-size:0.85rem; color:#6b7d73; margin-bottom:0.75rem;">This is shown only once. Copy it and send it to the media team.</p>
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="text" id="mediaNewPass" readonly style="font-family:monospace; font-size:1rem; background:#fff;">
+                    <button class="primary" onclick="copyMediaPass()" style="white-space:nowrap;">📋 Copy</button>
+                </div>
+                <p id="mediaCopyMsg" style="font-size:0.85rem; color:#3d9970; margin-top:0.5rem;"></p>
+            </div>
+
+            <div id="mediaMsg" class="msg"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+var sessionPassword = null;
+
+function togglePass() { var p=document.getElementById('loginPass'); p.type=p.type==='password'?'text':'password'; }
+
+function doLogin() {
+    var pass = document.getElementById('loginPass').value;
+    var msg = document.getElementById('loginMsg');
+    msg.style.color='#6b7d73'; msg.textContent='Checking...';
+    fetch('dashboard-login.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'password='+encodeURIComponent(pass)})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            try {
+                var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+                if(d.success){ sessionPassword=pass; sessionStorage.setItem('hw_admin_pass',pass); showDashboard(); }
+                else { msg.style.color='#c0392b'; msg.textContent='Incorrect password.'; }
+            } catch(e){ msg.style.color='#c0392b'; msg.textContent='Login error: ' + t.substring(0,100); }
+        })
+        .catch(function(){ msg.style.color='#c0392b'; msg.textContent='Network error.'; });
+}
+
+function showDashboard() {
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('dashScreen').style.display='block';
+    loadSermons(); loadTestimonies(); loadPrayers(); loadSubscribers(); loadMediaStatus();
+}
+function loadMediaStatus() {
+    var el = document.getElementById('mediaPassStatus');
+    if (!el) return;
+    fetch('get-media-status.php?t=' + Date.now())
+        .then(function(r){return r.text();})
+        .then(function(t){
+            try {
+                var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+                if (d.set) {
+                    el.innerHTML = '<span style="color:#3d9970; font-weight:700;">✅ Media password is SET</span> — media team can log in at media.html';
+                } else {
+                    el.innerHTML = '<span style="color:#c0392b; font-weight:700;">⚠️ Not set</span> — generate one below so the media team can log in.';
+                }
+            } catch(e) { el.textContent = 'Could not read status.'; }
+        })
+        .catch(function(){ el.textContent = 'Network error.'; });
+}
+
+function genMediaPass() {
+    var msg = document.getElementById('mediaMsg');
+    msg.style.color = '#6b7d73'; msg.textContent = 'Generating...';
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    b.append('mode', 'generate');
+    fetch('generate-media-password.php', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            try {
+                var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+                if (d.success) {
+                    msg.style.color = '#3d9970'; msg.textContent = 'New password generated.';
+                    document.getElementById('mediaNewPass').value = d.password;
+                    document.getElementById('mediaResult').style.display = 'block';
+                    document.getElementById('mediaCopyMsg').textContent = '';
+                    loadMediaStatus();
+                } else {
+                    msg.style.color = '#c0392b'; msg.textContent = d.message || 'Error.';
+                }
+            } catch(e) { msg.style.color = '#c0392b'; msg.textContent = 'Error: ' + t.substring(0,120); }
+        })
+        .catch(function(){ msg.style.color = '#c0392b'; msg.textContent = 'Network error.'; });
+}
+
+function saveMediaPass() {
+    var msg = document.getElementById('mediaMsg');
+    var pw = document.getElementById('mediaCustomPass').value;
+    if (!pw) { msg.style.color = '#c0392b'; msg.textContent = 'Enter a password.'; return; }
+    msg.style.color = '#6b7d73'; msg.textContent = 'Saving...';
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    b.append('mode', 'custom');
+    b.append('newpass', pw);
+    fetch('generate-media-password.php', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            try {
+                var d = JSON.parse(t.replace(/^\uFEFF/, ''));
+                if (d.success) {
+                    msg.style.color = '#3d9970'; msg.textContent = 'Media password saved.';
+                    document.getElementById('mediaCustomPass').value = '';
+                    loadMediaStatus();
+                } else {
+                    msg.style.color = '#c0392b'; msg.textContent = d.message || 'Error.';
+                }
+            } catch(e) { msg.style.color = '#c0392b'; msg.textContent = 'Error: ' + t.substring(0,120); }
+        })
+        .catch(function(){ msg.style.color = '#c0392b'; msg.textContent = 'Network error.'; });
+}
+
+function copyMediaPass() {
+    var el = document.getElementById('mediaNewPass');
+    el.select();
+    navigator.clipboard.writeText(el.value).then(function(){
+        document.getElementById('mediaCopyMsg').textContent = 'Copied to clipboard.';
+    }).catch(function(){
+        document.execCommand('copy');
+        document.getElementById('mediaCopyMsg').textContent = 'Copied.';
+    });
+}
+
+function doLogout() {
+    sessionPassword=null; sessionStorage.removeItem('hw_admin_pass');
+    document.getElementById('dashScreen').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('loginPass').value=''; document.getElementById('loginMsg').textContent='';
+}
+
+function showTab(name,btn) {
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.getElementById('tab-'+name).classList.add('active'); btn.classList.add('active');
+}
+
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+function showNoticeSub(sub) {
+    document.getElementById('notice-add-panel').style.display = sub === 'add' ? 'block' : 'none';
+    document.getElementById('notice-manage-panel').style.display = sub === 'manage' ? 'block' : 'none';
+    document.getElementById('notice-add-btn').classList.toggle('active', sub === 'add');
+    document.getElementById('notice-manage-btn').classList.toggle('active', sub === 'manage');
+    if (sub === 'manage') loadManageNotices();
+}
+
+function addNotice() {
+    var msg = document.getElementById('noticeMsg');
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    b.append('category', document.getElementById('notice-category').value);
+    b.append('title', document.getElementById('notice-title').value);
+    b.append('text', document.getElementById('notice-text').value);
+    fetch('save-notice.php?action=add', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            msg.style.color = t.indexOf('Success') !== -1 ? '#3d9970' : '#c0392b';
+            msg.textContent = t;
+            if (t.indexOf('Success') !== -1) {
+                document.getElementById('notice-category').value = '';
+                document.getElementById('notice-title').value = '';
+                document.getElementById('notice-text').value = '';
+            }
+        }).catch(function(){msg.style.color='#c0392b';msg.textContent='Error.';});
+}
+
+function loadManageNotices() {
+    fetch('notices.json?t=' + Date.now())
+        .then(function(r){return r.json();})
+        .then(function(data){
+            var list = document.getElementById('noticeManageList');
+            if (!Array.isArray(data) || data.length === 0) {
+                list.innerHTML = '<div class="empty">No notices yet.</div>';
+                return;
+            }
+            list.innerHTML = data.map(function(n, i){
+                return '<div class="item"><strong>' + esc(n.title || '') + '</strong>' +
+                    (n.category ? ' <span class="badge badge-approved">' + esc(n.category) + '</span>' : '') +
+                    '<div class="body">' + esc(n.text || '') + '</div>' +
+                    '<div class="actions"><button class="btn-delete" onclick="deleteNotice(' + i + ')">Delete</button></div></div>';
+            }).join('');
+        }).catch(function(){document.getElementById('noticeManageList').innerHTML='<div class="empty">Error loading.</div>';});
+}
+
+function deleteNotice(index) {
+    if (!confirm('Delete this notice?')) return;
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    b.append('index', index);
+    fetch('save-notice.php?action=delete', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){ if (t.indexOf('Deleted') !== -1) loadManageNotices(); else alert(t); });
+}
+
+function deleteAllNotices() {
+    if (!confirm('Delete ALL notices? This cannot be undone.')) return;
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    fetch('save-notice.php?action=delete_all', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(){ loadManageNotices(); });
+}
+
+function loadSermons() {
+    fetch('get-sermons.php?t='+Date.now()).then(function(r){return r.text();}).then(function(t){
+        var data=JSON.parse(t.replace(/^\uFEFF/,''));
+        var list=document.getElementById('sermonList');
+        if(!Array.isArray(data)||data.length===0){list.innerHTML='<div class="empty">No sermons yet.</div>';return;}
+        list.innerHTML=data.map(function(s,i){
+            return '<div class="item"><strong>'+esc(s.topic)+'</strong><br><em>'+esc(s.verse)+'</em>'+
+            '<div class="body">'+esc(s.explanation).substring(0,150)+'...</div>'+
+            '<div class="detail">'+esc(s.date||'')+'</div>'+
+            '<div class="actions"><button class="btn-delete" onclick="deleteSermon('+i+')">Delete</button></div></div>';
+        }).join('');
+    }).catch(function(){document.getElementById('sermonList').innerHTML='<div class="empty">Error loading.</div>';});
+}
+
+function addSermon() {
+    var msg=document.getElementById('serMsg');
+    var b=new URLSearchParams();
+    b.append('password',sessionPassword);
+    b.append('topic',document.getElementById('ser-topic').value);
+    b.append('verse',document.getElementById('ser-verse').value);
+    b.append('explanation',document.getElementById('ser-explain').value);
+    b.append('youtube',document.getElementById('ser-youtube').value);
+    b.append('date',document.getElementById('ser-date').value);
+    fetch('save-sermon.php?action=add',{method:'POST',body:b}).then(function(r){return r.text();}).then(function(t){
+        msg.style.color=t.indexOf('Success')!==-1?'#3d9970':'#c0392b'; msg.textContent=t;
+        if(t.indexOf('Success')!==-1){['ser-topic','ser-verse','ser-explain','ser-youtube','ser-date'].forEach(function(id){document.getElementById(id).value='';}); setTimeout(loadSermons,500);}
+    }).catch(function(){msg.style.color='#c0392b';msg.textContent='Error.';});
+}
+
+function deleteSermon(i){ if(!confirm('Delete?'))return; var b=new URLSearchParams(); b.append('password',sessionPassword); b.append('index',i); fetch('save-sermon.php?action=delete',{method:'POST',body:b}).then(function(){setTimeout(loadSermons,500);}); }
+
+function loadTestimonies() {
+    fetch('get-all-testimonies.php?password='+encodeURIComponent(sessionPassword)+'&t='+Date.now()).then(function(r){return r.text();}).then(function(t){
+        var data=JSON.parse(t.replace(/^\uFEFF/,''));
+        var list=document.getElementById('testimonyList');
+        if(!Array.isArray(data)||data.length===0){list.innerHTML='<div class="empty">No testimonies yet.</div>';return;}
+        list.innerHTML=data.map(function(t,i){
+            var pend=t.status==='pending';
+            return '<div class="item '+(pend?'pending':'')+'"><strong>'+esc(t.name)+'</strong>'+
+            (t.location?' <span class="detail">('+esc(t.location)+')</span>':'')+
+            ' <span class="badge '+(pend?'badge-pending':'badge-approved')+'">'+(t.status||'?').toUpperCase()+'</span>'+
+            '<div class="detail">Phone: '+esc(t.phone||'-')+' | Email: '+esc(t.email||'-')+' | Date: '+esc(t.date||'-')+'</div>'+
+            '<div class="body">"'+esc(t.testimony)+'"</div>'+
+            '<div class="actions">'+(pend?'<button class="btn-approve" onclick="approveTestimony('+i+')">Approve</button>':'')+
+            '<button class="btn-delete" onclick="deleteTestimony('+i+')">Delete</button></div></div>';
+        }).join('');
+    }).catch(function(){document.getElementById('testimonyList').innerHTML='<div class="empty">Error loading.</div>';});
+}
+
+function approveTestimony(i){var b=new URLSearchParams();b.append('password',sessionPassword);b.append('index',i);fetch('save-testimony.php?action=approve',{method:'POST',body:b}).then(function(r){return r.text();}).then(function(t){alert(t);loadTestimonies();});}
+function deleteTestimony(i){if(!confirm('Delete?'))return;var b=new URLSearchParams();b.append('password',sessionPassword);b.append('index',i);fetch('save-testimony.php?action=delete',{method:'POST',body:b}).then(function(){loadTestimonies();});}
+
+function loadPrayers() {
+    fetch('get-prayers.php?password='+encodeURIComponent(sessionPassword)+'&t='+Date.now())
+        .then(function(r){return r.text();})
+        .then(function(t){
+            var data = JSON.parse(t.replace(/^\uFEFF/, ''));
+            var list = document.getElementById('prayerList');
+            if(!Array.isArray(data)||data.length===0){list.innerHTML='<div class="empty">No prayer requests yet.</div>';return;}
+            list.innerHTML=data.map(function(p,i){
+                return '<div class="item"><strong>'+esc(p.name||'Anonymous')+'</strong>'+
+                '<div class="detail">Phone: '+esc(p.phone||'-')+' | Email: '+esc(p.email||'-')+'</div>'+
+                '<div class="detail">Church: '+esc(p.church||'-')+' | Role: '+esc(p.role||'-')+'</div>'+
+                '<div class="detail">Date: '+esc(p.date||'-')+'</div>'+
+                '<div class="body">"'+esc(p.request||'')+'"</div>'+
+                '<div class="actions"><button class="btn-delete" onclick="deletePrayer('+i+')">Delete</button></div></div>';
+            }).join('');
+        })
+        .catch(function(e){
+            document.getElementById('prayerList').innerHTML = '<div class="empty">Error loading: ' + e.message + '</div>';
+        });
+}
+
+function deletePrayer(i) {
+    if(!confirm('Delete this prayer request?'))return;
+    var b = new URLSearchParams();
+    b.append('password', sessionPassword);
+    b.append('index', i);
+    fetch('delete-prayer.php', {method:'POST', body:b})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            if(t.indexOf('Deleted')!==-1){ loadPrayers(); }
+            else { alert('Delete failed: ' + t); }
+        });
+}
+
+function loadSubscribers() {
+    fetch('get-subscribers.php?password='+encodeURIComponent(sessionPassword)+'&t='+Date.now()).then(function(r){return r.text();}).then(function(t){
+        var data=JSON.parse(t.replace(/^\uFEFF/,''));
+        var list=document.getElementById('subsList');
+        if(!Array.isArray(data)||data.length===0){list.innerHTML='<div class="empty">No subscribers yet.</div>';return;}
+        var html = '<div style="margin-bottom:1rem;"><strong style="color:var(--primary);">Total: ' + data.length + ' subscribers</strong></div>';
+        html += data.map(function(s, i) {
+            var isSuspended = s.status === 'suspended';
+            var badge = isSuspended 
+                ? '<span class="badge badge-pending">SUSPENDED</span>' 
+                : '<span class="badge badge-approved">ACTIVE</span>';
+            return '<div class="item ' + (isSuspended ? 'pending' : '') + '">' +
+                '<strong>' + esc(s.email) + '</strong> ' + badge +
+                '<div class="actions">' +
+                    (isSuspended 
+                        ? '<button class="btn-approve" onclick="manageSubscriber(' + i + ', &quot;activate&quot;)">Activate</button>'
+                        : '<button class="btn-approve" style="background:#e67e22;" onclick="manageSubscriber(' + i + ', &quot;suspend&quot;)">Suspend</button>') +
+                    '<button class="btn-delete" onclick="manageSubscriber(' + i + ', &quot;delete&quot;)">Delete</button>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+        list.innerHTML = html;
+    }).catch(function(){document.getElementById('subsList').innerHTML='<div class="empty">Error loading.</div>';});
+}
+
+function manageSubscriber(index, action) {
+    if (action === 'delete' && !confirm('Delete this subscriber permanently?')) return;
+    if (action === 'suspend' && !confirm('Suspend this subscriber?')) return;
+    var body = new URLSearchParams();
+    body.append('password', sessionPassword);
+    body.append('index', index);
+    fetch('manage-subscriber.php?action=' + action, {method:'POST', body:body})
+        .then(function(r){return r.text();})
+        .then(function(t){
+            if (t.indexOf('Deleted') !== -1 || t.indexOf('Suspended') !== -1 || t.indexOf('Activated') !== -1) {
+                loadSubscribers();
+            } else {
+                alert(t);
+            }
+        });
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+    var saved=sessionStorage.getItem('hw_admin_pass');
+    if(saved){sessionPassword=saved;showDashboard();}
+});
+</script>
+</body>
+</html>

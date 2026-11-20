@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimonies Admin — Heavenly Wonders Ministry</title>
+<style>
+body { font-family: system-ui, sans-serif; background:#f4f7f4; color:#1e2f2e; padding:2rem; }
+.container { max-width:900px; margin:0 auto; background:#fff; padding:2rem; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.1); }
+h1 { color:#2c6e49; margin-bottom:0.5rem; }
+h2 { color:#2c6e49; margin-top:2rem; margin-bottom:1rem; }
+p { margin-bottom:1.5rem; }
+label { display:block; font-weight:bold; margin-bottom:0.5rem; }
+input { width:100%; padding:0.8rem; border:1px solid #e2ede4; border-radius:8px; font-family:inherit; font-size:1rem; box-sizing:border-box; margin-bottom:1rem; }
+button { color:#fff; border:none; padding:0.6rem 1.2rem; border-radius:6px; font-size:0.9rem; font-weight:bold; cursor:pointer; margin-right:0.5rem; }
+.approve-btn { background:#3d9970; }
+.approve-btn:hover { background:#2c6e49; }
+.delete-btn { background:#c0392b; }
+.delete-btn:hover { background:#a93226; }
+.testimony-item { background:#f4f7f4; padding:1.25rem; border-radius:8px; margin-bottom:1rem; border-left:4px solid #c9a227; }
+.testimony-item.pending { border-left-color: #e67e22; background: #fff8f0; }
+.testimony-item strong { color:#2c6e49; }
+.detail { font-size:0.85rem; color:#6b7d73; margin-bottom:0.25rem; }
+.testimony-text { font-size:0.95rem; line-height:1.6; margin:0.5rem 0; }
+.status-badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:10px; font-size:0.75rem; font-weight:bold; color:#fff; }
+.status-pending { background:#e67e22; }
+.status-approved { background:#3d9970; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Testimonies Admin</h1>
+<p>Review, approve, or delete testimonies submitted by visitors.</p>
+
+<label>Admin Password</label>
+<input type="password" id="adminPass" placeholder="Enter password...">
+<button onclick="loadTestimonies()" class="approve-btn">Load Testimonies</button>
+
+<h2>All Testimonies</h2>
+<div id="testimonyList"><p style="color:#6b7d73; font-style:italic;">Enter your password and click Load.</p></div>
+</div>
+
+<script>
+function loadTestimonies() {
+    const password = document.getElementById('adminPass').value;
+    if (!password) { alert('Please enter your admin password.'); return; }
+    
+    const list = document.getElementById('testimonyList');
+    list.innerHTML = '<p>Loading...</p>';
+    
+    fetch('get-all-testimonies.php?t=' + new Date().getTime() + '&password=' + encodeURIComponent(password))
+        .then(res => res.json())
+        .then(data => {
+            if (!Array.isArray(data)) {
+                list.innerHTML = '<p style="color:#c0392b;">Error: ' + JSON.stringify(data) + '</p>';
+                return;
+            }
+            if (data.length === 0) {
+                list.innerHTML = '<p style="color:#6b7d73; font-style:italic;">No testimonies yet.</p>';
+                return;
+            }
+            let html = '';
+            data.forEach((t, i) => {
+                const isPending = t.status === 'pending';
+                html += '<div class="testimony-item ' + (isPending ? 'pending' : '') + '">';
+                html += '<div><strong>' + escapeHtml(t.name) + '</strong>';
+                if (t.location) html += ' <span style="color:#6b7d73; font-size:0.85rem;">(' + escapeHtml(t.location) + ')</span>';
+                html += ' <span class="status-badge ' + (isPending ? 'status-pending' : 'status-approved') + '">' + (t.status || 'unknown').toUpperCase() + '</span>';
+                html += '</div>';
+                html += '<div class="detail">📱 ' + escapeHtml(t.phone || 'Not provided') + '</div>';
+                html += '<div class="detail">📧 ' + escapeHtml(t.email || 'Not provided') + '</div>';
+                html += '<div class="detail">📅 ' + escapeHtml(t.date || 'No date') + '</div>';
+                html += '<div class="testimony-text">"' + escapeHtml(t.testimony) + '"</div>';
+                html += '<div>';
+                if (isPending) {
+                    html += '<button class="approve-btn" onclick="approveTestimony(' + i + ')">✅ Approve</button>';
+                }
+                html += '<button class="delete-btn" onclick="deleteTestimony(' + i + ')">🗑 Delete</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+            list.innerHTML = html;
+        })
+        .catch(err => {
+            list.innerHTML = '<p style="color:#c0392b;">Network error: ' + err.message + '</p>';
+        });
+}
+
+function approveTestimony(index) {
+    const password = document.getElementById('adminPass').value;
+    const formData = new URLSearchParams();
+    formData.append('password', password);
+    formData.append('index', index);
+    
+    fetch('save-testimony.php?action=approve', { method: 'POST', body: formData })
+        .then(res => res.text())
+        .then(text => { alert(text); loadTestimonies(); });
+}
+
+function deleteTestimony(index) {
+    if (!confirm('Delete this testimony?')) return;
+    const password = document.getElementById('adminPass').value;
+    const formData = new URLSearchParams();
+    formData.append('password', password);
+    formData.append('index', index);
+    
+    fetch('save-testimony.php?action=delete', { method: 'POST', body: formData })
+        .then(res => res.text())
+        .then(text => { alert(text); loadTestimonies(); });
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+}
+</script>
+</body>
+</html>
