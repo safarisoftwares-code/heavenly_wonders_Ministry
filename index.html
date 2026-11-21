@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -35,14 +35,10 @@
             line-height: 1.7;
             background-color: #1a2520;
             background-image: 
-                /* Brighter, larger golden glow */
                 radial-gradient(circle at 30% 30%, rgba(255, 245, 180, 0.6) 0%, rgba(255, 215, 0, 0.3) 40%, transparent 80%),
-                /* Lighter dark overlay so the image shines through */
                 linear-gradient(rgba(10, 20, 15, 0.2), rgba(10, 20, 15, 0.7)), 
                 url('images/hero-background.jpg');
             background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
@@ -84,22 +80,20 @@
             50% { transform: translateY(-20px) rotate(25deg); }
             100% { transform: translateY(0px) rotate(25deg); }
         }
-            100% { transform: translateY(0px) rotate(-15deg); }
-        }
         @media (max-width: 768px) {
             .books-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
             .combined-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
             .floating-angel {
-            position: absolute;
-            right: -2%;
-            top: 20%;
-            width: 150px;
-            height: auto;
-            z-index: 1;
-            pointer-events: none;
-            transform: rotate(25deg);
-            animation: floatAngel 6s ease-in-out infinite;
-        }
+                position: absolute;
+                right: -2%;
+                top: 20%;
+                width: 150px;
+                height: auto;
+                z-index: 1;
+                pointer-events: none;
+                transform: rotate(25deg);
+                animation: floatAngel 6s ease-in-out infinite;
+            }
         }
         /* HERO */
         .hero { min-height: 88vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 6rem 20px 5rem 20px; position: relative; }
@@ -136,7 +130,6 @@
             transform: translateY(-1px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.4);
         }
-        .btn-primary:hover { background: #3d9970; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.5); }
         .btn-outline {
             background: #2c6e49;
             color: #ffffff;
@@ -147,11 +140,6 @@
             background: #3d9970;
             transform: translateY(-1px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-        }
-        .btn-outline:hover { 
-            background: #3d9970; /* Lighter green on hover */
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5); 
         }
         .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: #ffffff; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; animation: bounce 2s infinite; cursor: pointer; text-decoration: none; }
         .scroll-indicator:hover { opacity: 1; color: var(--gold); }
@@ -186,6 +174,11 @@
         .notice-card { background: #ffffff; border-radius: 12px; padding: 3rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
         .coming-soon-box { border: 2px dashed #c9a227; border-radius: 10px; padding: 1.5rem; background: #f4f7f4; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; }
 
+        /* THE FIX: 1 inch (110px) + 2mm (8px) = 118px scroll margin */
+        #home-testimonies, #praise-worship-card {
+            scroll-margin-top: 118px; 
+        }
+
         /* SUPPORT */
         .support-banner { max-width: 1200px; margin: 0 auto; background: #2c6e49; border-radius: 12px; padding: 4rem 3rem; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 
@@ -217,7 +210,7 @@
             .glass-card { padding: 2rem 1.5rem; }
             .hero h1 { font-size: 2.2rem; }
         }
-    /* BULLETPROOF LOGO ALIGNMENT */
+        /* BULLETPROOF LOGO ALIGNMENT */
         .logo {
             display: flex !important;
             flex-direction: row !important;
@@ -249,7 +242,6 @@
             position: relative;
             top: 0;
             font-size: 1.4rem;
-            /* Shiny Gold Gradient */
             background: linear-gradient(
                 110deg,
                 #ffd700 0%, #ffea00 15%, #ffffff 25%, #fffacd 35%,
@@ -261,11 +253,10 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
-            /* Sharp, crisp shadow. No blurry halo. */
             filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.8));
             animation: goldSweep 4s linear infinite;
         }
-    /* MOBILE BOTTOM NAV */
+        /* MOBILE BOTTOM NAV */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
@@ -311,11 +302,11 @@
             .mobile-bottom-nav { display: flex; }
             body { padding-bottom: 70px; }
         }
-    /* UNIVERSAL BUTTON UNIFORMITY */
+        /* UNIVERSAL BUTTON UNIFORMITY */
         .btn, .btn-primary, .btn-outline, button[type="submit"] {
-            height: 48px !important; /* Fixed uniform height */
-            padding: 0 1.5rem !important; /* Consistent horizontal spacing */
-            font-size: 0.95rem !important; /* Uniform text size */
+            height: 48px !important;
+            padding: 0 1.5rem !important;
+            font-size: 0.95rem !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -325,8 +316,6 @@
             text-decoration: none !important;
             line-height: 1 !important;
         }
-
-        /* Ensure the gold ring applies to all */
         .btn, .btn-primary, .btn-outline {
             border: 2px solid #c9a227 !important;
             background: #2c6e49 !important;
@@ -334,8 +323,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
             transition: all 0.2s ease !important;
         }
-
-        /* Hover state */
         .btn:hover, .btn-primary:hover, .btn-outline:hover {
             background: #3d9970 !important;
             transform: translateY(-1px) !important;
@@ -343,8 +330,6 @@
     </style>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2c6e49">
-    <link rel="icon" type="image/png" href="images/angel-icon.png">
-    <link rel="apple-touch-icon" href="images/angel-icon.png">
 </head>
 <body>
     <header>
@@ -355,7 +340,7 @@
                 <a href="#book">The Book</a>
                 <a href="#library">Library</a>
                 <a href="#contact">Contact</a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☾</button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
             </nav>
         </div>
     </header>
@@ -367,10 +352,10 @@
             <h1>Heavenly Wonders Ministry</h1>
             <p>Teaching Scripture. Equipping Believers.<br>Walking in Victory.</p>
             <div class="btn-group">
-            <a href="#home-testimonies" class="btn btn-primary" onclick="document.getElementById('home-testimonies').scrollIntoView({behavior: 'smooth'}); return false;">Read Testimonies</a>
-            <a href="#library" class="btn btn-outline">Explore Scripture Library</a>
-            <a href="#live-service" class="btn btn-outline" onclick="document.getElementById('live-service').scrollIntoView({behavior: 'smooth'}); return false;">Watch</a>
-            <a href="#praise-worship" class="btn btn-outline" onclick="document.getElementById('praise-worship').scrollIntoView({behavior: 'smooth'}); return false;">Listen</a>
+                <a href="#home-testimonies" class="btn btn-primary">Read Testimonies</a>
+                <a href="#library" class="btn btn-outline">Explore Scripture Library</a>
+                <a href="#" onclick="scrollToWatch(event)" class="btn btn-outline">Watch</a>
+                <a href="#praise-worship-card" class="btn btn-outline">Listen</a>
             </div>
             <a href="#about" class="scroll-indicator">
                 <span>Scroll to explore</span>
@@ -386,38 +371,28 @@
             <p style="color: #ffffff; font-size: 1.15rem; line-height: 1.85; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,0.7);">Whether you are studying alone, leading a family, or seeking answers in a difficult season, our prayer is that these resources will anchor you in the truth of Christ and equip you to walk in the victory He has already won.</p>
         </section>
 
-        <!-- BIBLE STUDY COMPANION -->
         <!-- BIBLE STUDY COMPANION & LIVE SERVICE -->
         <section id="resources" class="container" style="padding: 4rem 20px;">
-            
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; align-items: stretch;" class="companion-grid">
                 
                 <!-- LEFT COLUMN -->
                 <div style="display: flex; flex-direction: column; align-items: center; height: 100%;">
-                    <!-- TOP WHITE BOX 1 -->
                     <div style="background: #ffffff; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); width: 100%; margin-bottom: 2rem; flex-grow: 1; display: flex; flex-direction: column;">
-                        <!-- Fixed height image container -->
                         <div style="height: 450px; width: 100%; overflow: hidden; border-radius: 8px;">
-                            <!-- Added ?v=2 to force browser cache refresh -->
                             <img src="images/poster.png?v=2" alt="Bible Study Companion" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                         </div>
                     </div>
-                    <!-- BUTTON -->
                     <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/index.html" class="btn btn-primary" target="_blank" style="padding: 1rem; display: flex; justify-content: center; width: 100%; font-size: 1.05rem;">Open the Study Helper</a>
                 </div>
 
                 <!-- RIGHT COLUMN -->
                 <div style="display: flex; flex-direction: column; align-items: center; height: 100%;">
-                    <!-- TOP WHITE BOX 2 -->
                     <div style="background: #ffffff; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); width: 100%; margin-bottom: 2rem; flex-grow: 1; display: flex; flex-direction: column;">
-                        <!-- Fixed height image container -->
                         <div style="height: 450px; width: 100%; overflow: hidden; border-radius: 8px;">
-                            <!-- Added ?v=2 to force browser cache refresh -->
                             <img src="images/live-service-new.jpg" alt="Live Service" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                         </div>
                     </div>
-                    <!-- BUTTON -->
-                    <button id="live-service" onclick="loadLiveModalBody(); document.getElementById('liveModal').style.display='flex'" class="btn btn-primary" style="width: 100%; cursor: pointer; scroll-margin-top: 80vh;">Watch Live</button>
+                    <button id="watch-live-button" onclick="document.getElementById('liveModal').style.display='flex'" class="btn btn-primary" style="width: 100%; cursor: pointer;">Watch Live</button>
                 </div>
 
             </div>
@@ -470,7 +445,7 @@
         </section>
 
         <!-- LIBRARY -->
-        <section id="library" class="container">
+        <section id="library" class="container" style="scroll-margin-top: 100px;">
             <h2 style="color: #ffffff; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Scripture Library</h2>
             <div class="gold-rule"></div>
             
@@ -493,66 +468,89 @@
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/covenants.html" class="lib-card" target="_blank"><div class="lib-image-wrap"><img src="images/lib-covenants-1.jpg" alt="Covenants" class="active"></div><div class="lib-title">Covenants</div><div class="lib-desc">God's promises to us.</div></a>
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/spirit.html" class="lib-card" target="_blank"><div class="lib-image-wrap"><img src="images/lib-spirit-1.jpg" alt="Holy Spirit" class="active"></div><div class="lib-title">Holy Spirit</div><div class="lib-desc">Walking in the Spirit.</div></a>
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/prayer.html" class="lib-card" target="_blank"><div class="lib-image-wrap"><img src="images/lib-prayer-1.jpg" alt="Prayer Warriors" class="active"></div><div class="lib-title">Prayer Warriors</div><div class="lib-desc">The power of prayer.</div></a>
+                
+                <!-- SACRIFICE CARD -->
+                <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/sacrifice.html" class="lib-card" target="_blank">
+                    <div class="lib-image-wrap">
+                        <img src="images/lib-sacrifice-1.jpg" alt="Sacrifice" class="active">
+                    </div>
+                    <div class="lib-title">Sacrifice</div>
+                    <div class="lib-desc">Understanding the ultimate sacrifice.</div>
+                </a>
+
+                <!-- NEW SPOKEN WORD CARD -->
+                <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/spokenword.html" class="lib-card" target="_blank">
+                    <div class="lib-image-wrap">
+                        <img src="images/spoken_word.png" alt="The Spoken Word" class="active">
+                    </div>
+                    <div class="lib-title">The Spoken Word</div>
+                    <div class="lib-desc">The Word on Christ's lips and the Prophets'.</div>
+                </a>
+                
                 <a href="#book" class="lib-card" style="border: 2px solid var(--gold);"><div class="lib-image-wrap" data-rotate="true"><img src="images/lib-book-1.jpg" alt="Walking in Victory" class="active"><img src="images/lib-book-2.jpg" alt="Walking in Victory" loading="lazy"></div><div class="lib-title">Walking in Victory</div><div class="lib-desc">The featured book.</div></a>
-                <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/sacrifice.html" class="lib-card"><div class="lib-image-wrap"><img src="images/lib-sacrifice-1.jpg" alt="Sacrifice" class="active"></div><div class="lib-title">Sacrifice</div><div class="lib-desc">Physical and spiritual.</div></a>
             </div>
         </section>
 
-        <!-- NOTICE + PRAISE + TESTIMONIES (2x2 GRID) -->
+        <!-- NOTICE + PRAISE -->
         <section id="notice-board" class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;" class="notice-grid">
-                
-                <!-- ROW 1, LEFT: NOTICE BOARD -->
-                <div class="notice-card" style="display: flex; flex-direction: column;">
+            <div class="notice-grid">
+                <div class="notice-card">
                     <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">Notice Board</h2>
                     <div class="gold-rule" style="margin: 0 0 1.5rem 0;"></div>
-                    <div id="notice-container" style="flex-grow: 1; display: flex; flex-direction: column; gap: 0.75rem;">
-                        <div class="empty" style="color: #6b7d73; font-style: italic; font-size: 0.9rem;">Loading notices...</div>
-                    </div>
-                    <div id="notice-dots" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;"></div>
+                    <ul id="notice-list" style="list-style: none; padding: 0; color: #1e2f2e;">
+                        <li style="padding: 1.25rem 0; border-bottom: 1px solid #e2ede4;"><strong style="color: #2c6e49;">Sunday Service</strong><br><span style="font-size: 0.9rem;">Join us every Sunday at 10:00 AM for worship and the Word.</span></li>
+                        <li style="padding: 1.25rem 0; border-bottom: 1px solid #e2ede4;"><strong style="color: #2c6e49;">Midweek Bible Study</strong><br><span style="font-size: 0.9rem;">Wednesdays at 6:00 PM. Bring your Bible and a friend.</span></li>
+                        <li style="padding: 1.25rem 0;"><strong style="color: #2c6e49;">Prayer Night</strong><br><span style="font-size: 0.9rem;">Last Friday of every month at 8:00 PM.</span></li>
+                    </ul>
                 </div>
-
-                <!-- ROW 1, RIGHT: PRAISE & WORSHIP -->
-                <div class="notice-card" id="praise-worship" style="display: flex; flex-direction: column; scroll-margin-top: 80px;">
-                    <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">Praise & Worship</h2>
-                    <div class="gold-rule" style="margin: 0 0 1.5rem 0;"></div>
-                    <p style="color: #1e2f2e; font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1;">Lift your spirit with original Afro-Gospel worship from Safari Music. Every song is rooted in Scripture.</p>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
-                        <a href="https://youtu.be/89oCbVYT2Lo" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Damu Yake Yatosha</a>
-                        <a href="https://youtu.be/IhqN-W514qs" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Angalia Juu</a>
-                        <a href="https://youtu.be/fClHXO6ix_E" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Mawe Matano</a>
-                        <a href="https://youtu.be/vE2_cQzBwGQ" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Five Smooth Stones</a>
-                        <a href="https://youtu.be/GZsnUWM05bY" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Wewe Ni Mungu</a>
-                        <a href="https://youtu.be/DEiiSQdvKps" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.5rem;">Nimeamka Na Shangwe</a>
-                    </div>
-                    <a href="https://www.youtube.com/@HeavenlyWondersMinistry" target="_blank" class="btn btn-primary" style="width: 100%; margin-top: auto;">View All on YouTube</a>
-                </div>
-
-                <!-- ROW 2, LEFT: SHARE YOUR TESTIMONY (CARD A) -->
-                <div class="notice-card" style="display: flex; flex-direction: column; background: #e8f5ee; border: 2px solid #c9a227; text-align: center;">
-                    <div style="font-size: 3.5rem; margin-bottom: 1rem;">✍️</div>
-                    <h2 style="color: #2c6e49; font-size: 1.5rem; margin-bottom: 0.5rem;">Has God done something?</h2>
-                    <div class="gold-rule" style="margin: 0 auto 1.5rem auto;"></div>
-                    <p style="color: #1e2f2e; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; flex-grow: 1;">Your testimony could be the exact word someone needs to hear today. Share what God has done and encourage the body of Christ.</p>
-                    <button onclick="document.getElementById('testimonyModal').style.display='flex'" class="btn btn-primary" style="width: 100%; cursor: pointer; border: none; margin-top: auto;">✍️ Share Your Testimony</button>
-                </div>
-
-                <!-- ROW 2, RIGHT: TESTIMONIES LIST -->
+                <!-- TESTIMONIES CARD -->
                 <div class="notice-card" id="home-testimonies" style="display: flex; flex-direction: column;">
                     <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">✝️ Testimonies</h2>
                     <div class="gold-rule" style="margin: 0 0 1.5rem 0;"></div>
-                    <div id="homeTestimoniesList" style="flex-grow: 1; min-height: 120px;">
+                    <div id="homeTestimoniesList" style="flex-grow: 1; min-height: 150px; margin-bottom: 1rem;">
                         <p style="color: #6b7d73; font-style: italic; font-size: 0.9rem;">Loading testimonies...</p>
                     </div>
-                    <a href="testimonies.html" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">Read All →</a>
+                    <a href="testimonies.html" style="display: flex; align-items: center; justify-content: center; width: 100%; margin-top: auto; padding: 0.5rem 1rem; background: #2c6e49; color: #ffffff; border: 2px solid #c9a227; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='#3d9970'" onmouseout="this.style.background='#2c6e49'">Read All Testimonies →</a>
                 </div>
 
+                <!-- PRAISE & WORSHIP CARD -->
+                <div class="notice-card" id="praise-worship-card">
+                    <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">Praise & Worship</h2>
+                    <div class="gold-rule" style="margin: 0 0 1.5rem 0;"></div>
+                    <p style="color: #1e2f2e; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.8;">Lift your spirit with original Afro-Gospel worship from Safari Music. Every song is rooted in Scripture.</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                        <a href="https://youtu.be/89oCbVYT2Lo" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Damu Yake Yatosha</span>
+                        </a>
+                        <a href="https://youtu.be/IhqN-W514qs" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Angalia Juu</span>
+                        </a>
+                        <a href="https://youtu.be/fClHXO6ix_E" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Mawe Matano</span>
+                        </a>
+                        <a href="https://youtu.be/vE2_cQzBwGQ" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Five Smooth Stones</span>
+                        </a>
+                        <a href="https://youtu.be/GZsnUWM05bY" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Wewe Ni Mungu</span>
+                        </a>
+                        <a href="https://youtu.be/DEiiSQdvKps" target="_blank" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 0.5rem; background: #e8f5ee; border: 1px solid #2c6e49; border-radius: 8px; color: #1e2f2e; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-align: center; transition: background 0.2s;" onmouseover="this.style.background='#d4ead9'" onmouseout="this.style.background='#e8f5ee'">
+                            <span style="font-size: 1.2rem;">🎵</span>
+                            <span>Nimeamka Na Shangwe</span>
+                        </a>
+                    </div>
+
+                    <a href="https://www.youtube.com/@HeavenlyWondersMinistry" target="_blank" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">View All Songs on YouTube →</a>
+                </div>
             </div>
         </section>
 
-        
-
-        <!-- SUPPORT -->
         <!-- SUPPORT + NEED PRAYER (SIDE BY SIDE) -->
         <section id="support-prayer-combined" class="container" style="padding: 3rem 20px 5rem 20px;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1100px; margin: 0 auto; align-items: stretch;" class="combined-grid">
@@ -617,35 +615,21 @@
         </section>
     </main>
 
-    
-
-    <!-- NEWSLETTER SECTION -->
-    <section id="newsletter" class="container" style="padding: 2rem 20px; scroll-margin-top: 80px;">
-        <div style="max-width: 1200px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 1.5rem 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2ede4; text-align: center;">
-            <h3 style="color: #2c6e49; font-size: 1.25rem; margin-bottom: 0.3rem; font-weight: 700;">Stay Connected</h3>
-            <p style="color: #1e2f2e; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to receive ministry updates and new resources.</p>
-            <form id="newsletterForm" onsubmit="submitNewsletter(event)" style="display: flex; gap: 0.75rem; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
-                <input type="email" id="newsletterEmail" required placeholder="Enter your email address" 
-                    style="flex: 1; min-width: 200px; padding: 0.7rem 1rem; border-radius: 8px; border: 2px solid #c9a227; font-family: inherit; font-size: 0.9rem; background: #ffffff; color: #1e2f2e;">
-                <button type="submit" style="background: #c9a227; color: #1e2f2e; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; font-family: inherit;">Subscribe</button>
-            </form>
-            <p id="newsletterMessage" style="margin-top: 0.5rem; font-size: 0.85rem;"></p>
-        </div>
-    </section>
-
-    
-
-    
-
-    
-
-    
-
     <footer>
         <div class="container">
             
-            <!-- FOOTER TABS -->
-            <h3 style="color: #c9a227; text-align: center; font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: 700;">Explore the Ministry</h3>
+            <!-- NEWSLETTER SIGNUP -->
+            <div style="text-align: center; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="color: #ffffff; font-size: 1.2rem; margin-bottom: 0.5rem;">Stay Connected</h3>
+                <p style="color: #dfe8e0; font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to receive ministry updates and new resources.</p>
+                <form id="newsletterForm" onsubmit="submitNewsletter(event)" style="display: flex; gap: 0.5rem; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+                    <input type="email" id="newsletterEmail" required placeholder="Enter your email address" 
+                        style="flex: 1; min-width: 200px; padding: 0.85rem 1rem; border-radius: 8px; border: 2px solid #c9a227; font-family: inherit; font-size: 1rem; background: #ffffff; color: #1e2f2e;">
+                    <button type="submit" style="background: #c9a227; color: #1e2f2e; border: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; font-family: inherit;">Subscribe</button>
+                </form>
+                <p id="newsletterMessage" style="margin-top: 0.75rem; font-size: 0.9rem;"></p>
+            </div>
+
             <div class="footer-tabs">
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/bible.html" class="footer-tab">Bible</a>
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/index.html" class="footer-tab">Study</a>
@@ -659,13 +643,12 @@
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/spirit.html" class="footer-tab">Spirit</a>
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/prayer.html" class="footer-tab">Prayer</a>
                 <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/sacrifice.html" class="footer-tab">Sacrifice</a>
+                <a href="https://safarisoftwares-code.github.io/Bible-Study-Helper/spokenword.html" class="footer-tab">Spoken Word</a>
                 <a href="#book" class="footer-tab" style="color: var(--gold);">The Book</a>
                 <a href="sermons.html" class="footer-tab" style="background: #c9a227; color: #1e2f2e; font-weight: 700;">▶ Sermons</a>
-                <a href="prayer.html" class="footer-tab" style="background: #c9a227; color: #1e2f2e; font-weight: 700;">🙏 Prayer Requests</a>
-                <a href="testimonies.html" class="footer-tab" style="background: #c9a227; color: #1e2f2e; font-weight: 700;">✝️ Testimonies</a>
+                <a href="prayer.html" class="footer-tab" style="color: var(--gold);">🙏 Prayer Requests</a>
+                <a href="testimonies.html" class="footer-tab" style="color: var(--gold);">✝️ Testimonies</a>
             </div>
-
-            <!-- COPYRIGHT & LEGAL -->
             <div class="footer-bottom">
                 <p>&copy; 2026 Heavenly Wonders Ministry. All rights reserved.</p>
                 <p style="margin-top: 0.5rem;">Built by <a href="https://github.com/safarisoftwares-code" target="_blank">Safari Softwares</a></p>
@@ -674,7 +657,6 @@
                     <a href="privacy.html" style="color: #ffffff; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
                 </p>
             </div>
-
         </div>
     </footer>
 
@@ -692,7 +674,7 @@
             toggleBtn.addEventListener('click', function() {
                 if (html.getAttribute('data-theme') === 'dark') {
                     html.setAttribute('data-theme', 'light');
-                    toggleBtn.textContent = '☾';
+                    toggleBtn.textContent = '🌙';
                     localStorage.setItem('theme', 'light');
                 } else {
                     html.setAttribute('data-theme', 'dark');
@@ -700,6 +682,19 @@
                     localStorage.setItem('theme', 'dark');
                 }
             });
+        }
+
+        // --- CUSTOM SCROLL FUNCTIONS ---
+
+        // 2. Watch (Bring Watch Live button to the bottom of the screen)
+        function scrollToWatch(event) {
+            event.preventDefault();
+            const target = document.getElementById('watch-live-button');
+            const elementRect = target.getBoundingClientRect().top;
+            const absoluteElementTop = elementRect + window.pageYOffset;
+            // Scroll so the bottom of the button sits at the very bottom of the viewport
+            const offset = absoluteElementTop - window.innerHeight + target.offsetHeight + 10;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
         }
 
         // Back to Top Button
@@ -717,79 +712,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
-
-        // Notice Board — Rotating 3 at a time, every 15 minutes
-        var allNotices = [];
-        var noticeIndex = 0;
-        var noticesPerPage = 3;
-        var noticeInterval;
-
-        function loadNotices() {
-            fetch('fetch-notices.php?t=' + Date.now())
-                .then(function(r) { return r.text(); })
-                .then(function(t) {
-                    var data = JSON.parse(t.replace(/^\uFEFF/, ''));
-                    if (!Array.isArray(data) || data.length === 0) {
-                        document.getElementById('notice-container').innerHTML = '<div class="empty" style="color: #6b7d73; font-style: italic; font-size: 0.9rem;">No notices yet.</div>';
-                        return;
-                    }
-                    allNotices = data;
-                    renderNoticePage(0);
-                    startNoticeRotation();
-                })
-                .catch(function() {
-                    document.getElementById('notice-container').innerHTML = '<div class="empty" style="color: #6b7d73; font-style: italic; font-size: 0.9rem;">Error loading notices.</div>';
-                });
-        }
-
-        function renderNoticePage(startIdx) {
-            var container = document.getElementById('notice-container');
-            var dotsContainer = document.getElementById('notice-dots');
-            if (!container) return;
-            var html = '';
-            var endIdx = Math.min(startIdx + noticesPerPage, allNotices.length);
-            for (var i = startIdx; i < endIdx; i++) {
-                var n = allNotices[i];
-                html += '<div style="padding: 0.75rem 0; border-bottom: 1px solid #e2ede4;">';
-                if (n.category) html += '<span style="font-size: 0.7rem; background: #e8f5ee; color: #2c6e49; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">' + escHtml(n.category) + '</span> ';
-                html += '<strong style="color: #2c6e49; font-size: 0.95rem;">' + escHtml(n.title) + '</strong><br>';
-                html += '<span style="font-size: 0.9rem; color: #1e2f2e;">' + escHtml(n.text) + '</span>';
-                html += '</div>';
-            }
-            container.innerHTML = html;
-
-            if (dotsContainer) {
-                var totalPages = Math.ceil(allNotices.length / noticesPerPage);
-                var dotsHtml = '';
-                for (var p = 0; p < totalPages; p++) {
-                    var active = (p * noticesPerPage === startIdx);
-                    dotsHtml += '<span onclick="goToNoticePage(' + (p * noticesPerPage) + ')" style="width: 8px; height: 8px; border-radius: 50%; background: ' + (active ? '#c9a227' : '#e2ede4') + '; cursor: pointer; transition: background 0.3s;"></span>';
-                }
-                dotsContainer.innerHTML = dotsHtml;
-            }
-        }
-
-        function goToNoticePage(startIdx) {
-            noticeIndex = startIdx;
-            renderNoticePage(startIdx);
-        }
-
-        function startNoticeRotation() {
-            if (noticeInterval) clearInterval(noticeInterval);
-            noticeInterval = setInterval(function() {
-                noticeIndex += noticesPerPage;
-                if (noticeIndex >= allNotices.length) noticeIndex = 0;
-                renderNoticePage(noticeIndex);
-            }, 15 * 60 * 1000); // 15 minutes
-        }
-
-        function escHtml(s) {
-            var d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
-        }
-
-        document.addEventListener('DOMContentLoaded', loadNotices);
 
         // Notice Board
         fetch('notices.json')
@@ -839,24 +761,35 @@
     </script>
 <!-- LIVE STREAMING MODAL -->
     <div id="liveModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-        <div style="background: #ffffff; border-radius: 16px; padding: 2rem; max-width: 600px; width: 92%; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-height: 92vh; overflow-y: auto;">
+        <div style="background: #ffffff; border-radius: 16px; padding: 2.5rem; max-width: 400px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
             <!-- Close Button -->
-            <button onclick="document.getElementById('liveModal').style.display='none'" aria-label="Close" style="position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: #e8f5ee; border: 1px solid #c9a227; border-radius: 50%; font-size: 1.25rem; line-height: 1; cursor: pointer; color: #1e2f2e; display: flex; align-items: center; justify-content: center; transition: background 0.2s;" onmouseover="this.style.background='#d0dfd3'" onmouseout="this.style.background='#e8f5ee'">&times;</button>
-            <button id="liveExpandBtn" onclick="toggleLiveExpand()" aria-label="Expand" title="Expand" style="position: absolute; top: 12px; right: 56px; width: 36px; height: 36px; background: #e8f5ee; border: 1px solid #c9a227; border-radius: 50%; font-size: 1.1rem; line-height: 1; cursor: pointer; color: #1e2f2e; display: flex; align-items: center; justify-content: center; transition: background 0.2s;" onmouseover="this.style.background='#d0dfd3'" onmouseout="this.style.background='#e8f5ee'">⛶</button>
+            <button onclick="document.getElementById('liveModal').style.display='none'" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #1e2f2e;">&times;</button>
             
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:0.5rem; flex-wrap:wrap; padding-right:96px;">
-                <h2 style="color: #1e2f2e; margin:0; font-size:1.5rem;">Watch Live</h2>
-                <span id="liveBadgeSlot" style="flex:1; text-align:center;"></span>
-                <button onclick="document.getElementById('liveModal').style.display='none'" style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.5rem 1rem; background:#e8f5ee; color:#1e2f2e; border:2px solid #c9a227; border-radius:8px; font-weight:700; font-size:0.88rem; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='#d0dfd3'" onmouseout="this.style.background='#e8f5ee'">← Back</button>
-            </div>
-            <div class="gold-rule" style="margin: 0 auto 1rem auto;"></div>
-            <div id="liveModalBody" style="min-height: 120px;">
-                <p style="color: #1e2f2e; font-size: 0.95rem; margin-bottom: 2rem;">Loading...</p>
-            </div>
+            <h2 style="color: #1e2f2e; margin-bottom: 0.5rem; font-size: 1.5rem;">Watch Live</h2>
+            <div class="gold-rule" style="margin: 0 auto 1.5rem auto;"></div>
+            <p style="color: #1e2f2e; font-size: 0.95rem; margin-bottom: 2rem;">Choose your platform to join the service:</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@HeavenlyWondersMinistry/live" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #ff0000; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <span style="font-size: 1.5rem;">▶</span> YouTube Live
+                </a>
+                
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/HeavenlyWondersMinistry" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #1877f2; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <span style="font-size: 1.5rem;">f</span> Facebook Live
+                </a>
 
-            <button onclick="document.getElementById('liveModal').style.display='none'" style="display:flex; align-items:center; justify-content:center; gap:0.6rem; width:100%; padding:1rem 1.25rem; background:#e8f5ee; color:#1e2f2e; border:2px solid #c9a227; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; margin-top:1rem; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 6px 14px rgba(0,0,0,0.12);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 22px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 14px rgba(0,0,0,0.12)';">
-                ← Back
-            </button>
+                <!-- TV Broadcast -->
+                <a href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #2c6e49; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <span style="font-size: 1.5rem;">📺</span> TV Broadcast
+                </a>
+
+                <!-- Back / Close Button -->
+                <button onclick="document.getElementById('liveModal').style.display='none'" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #e2ede4; color: #1e2f2e; border: 1px solid #b3c7b9; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;" onmouseover="this.style.background='#d0dfd3'" onmouseout="this.style.background='#e2ede4'">
+                    ← Back
+                </button>
+            </div>
         </div>
     </div>
 
@@ -871,7 +804,7 @@
             
             <div style="display: flex; flex-direction: column; gap: 1rem;">
                 <!-- Watch Live Option -->
-                <a href="#" onclick="document.getElementById('watchListenModal').style.display='none'; loadLiveModalBody(); document.getElementById('liveModal').style.display='flex'; return false;" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #2c6e49; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem;">
+                <a href="#" onclick="document.getElementById('watchListenModal').style.display='none'; document.getElementById('liveModal').style.display='flex'; return false;" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 1rem; background: #2c6e49; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem;">
                     <span style="font-size: 1.5rem;">📡</span> Watch Live Service
                 </a>
                 
@@ -902,7 +835,7 @@
             <span class="nav-icon">🏠</span>
             <span>Home</span>
         </a>
-        <button onclick="loadLiveModalBody(); document.getElementById('liveModal').style.display='flex'">
+        <button onclick="document.getElementById('liveModal').style.display='flex'">
             <span class="nav-icon">📡</span>
             <span>Live</span>
         </button>
@@ -957,12 +890,12 @@
             })
             .then(function(res) { return res.text(); })
             .then(function(text) {
-                text = text.replace(/^\uFEFF/, "").trim();
                 if (text.indexOf('Success') !== -1) {
+                    msg.style.color = '#c9a227';
                     msg.textContent = '✅ Thank you for subscribing!';
                     document.getElementById('newsletterEmail').value = '';
                 } else {
-                    msg.style.color = '#1e2f2e'; msg.style.fontWeight = 'bold';
+                    msg.style.color = '#ff6b6b';
                     msg.textContent = '❌ ' + text;
                 }
             })
@@ -1078,178 +1011,5 @@
                 });
         });
     </script>
-
-<script>
-var liveModalExpanded = false;
-function toggleLiveExpand() {
-    var card = document.querySelector('#liveModal > div');
-    var btn = document.getElementById('liveExpandBtn');
-    if (!card) return;
-    liveModalExpanded = !liveModalExpanded;
-    if (liveModalExpanded) {
-        card.style.maxWidth = '95vw';
-        card.style.maxHeight = '95vh';
-        if (btn) btn.title = 'Collapse';
-    } else {
-        card.style.maxWidth = '600px';
-        card.style.maxHeight = '92vh';
-        if (btn) btn.title = 'Expand';
-    }
-}
-
-function loadLiveModalBody() {
-    var box = document.getElementById('liveModalBody');
-    if (!box) return;
-    box.innerHTML = '<p style="color: #1e2f2e; font-size: 0.95rem;">Loading...</p>';
-    fetch('get-live-status.php?t=' + Date.now())
-        .then(function(r){ return r.text(); })
-        .then(function(t){
-            var d;
-            try { d = JSON.parse(t.replace(/^\uFEFF/, '')); } catch(e) { d = {state:'off'}; }
-            box.innerHTML = buildLiveModalBody(d);
-        })
-        .catch(function(){
-            box.innerHTML = buildLiveModalBody({state:'off'});
-        });
-}
-
-function ytEmbedFromUrl(url) {
-    if (!url) return '';
-    var m = url.match(/(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
-    return m ? ('https://www.youtube.com/embed/' + m[1] + '?autoplay=0&rel=0') : '';
-}
-
-function fbEmbedFromUrl(url) {
-    if (!url) return '';
-    return 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=false&width=560';
-}
-
-function buildLiveModalBody(d) {
-    var ytChannel = 'https://www.youtube.com/@HeavenlyWondersMinistry';
-    var fbChannel = 'https://www.facebook.com/HeavenlyWondersMinistry';
-    var slot = document.getElementById('liveBadgeSlot');
-    if (slot) slot.innerHTML = '' ;
-
-    function card(href, bg, icon, name, sub, liveNow) {
-        var badge = liveNow
-            ? '<span style="display:inline-flex; align-items:center; gap:0.35rem; background:#e74c3c; color:#fff; padding:0.25rem 0.7rem; border-radius:20px; font-size:0.7rem; font-weight:800; letter-spacing:1px; margin-left:0.5rem;">● LIVE</span>'
-            : '';
-        return '<div style="position:relative;">' +
-            '<a href="' + href + '" style="display:flex; align-items:center; gap:1rem; padding:1rem 3rem 1rem 1.25rem; background:' + bg + '; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; font-size:1rem; border:2px solid #c9a227; box-shadow:0 6px 14px rgba(0,0,0,0.25); transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform=\'translateY(-2px)\'; this.style.boxShadow=\'0 10px 22px rgba(0,0,0,0.35)\';" onmouseout="this.style.transform=\'translateY(0)\'; this.style.boxShadow=\'0 6px 14px rgba(0,0,0,0.25)\';">' +
-                '<span style="font-size:1.75rem; line-height:1;">' + icon + '</span>' +
-                '<span style="display:flex; flex-direction:column; align-items:flex-start; text-align:left;"><span>' + name + badge + '</span><span style="font-size:0.78rem; font-weight:500; opacity:0.85;">' + sub + '</span></span>' +
-            '</a>' +
-            '<a href="' + href + '" target="_blank" rel="noopener" title="Open in new tab" style="position:absolute; top:8px; right:8px; width:28px; height:28px; background:rgba(255,255,255,0.25); color:#fff; text-decoration:none; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.95rem; font-weight:800; border:1px solid rgba(255,255,255,0.4);" onmouseover="this.style.background=\'rgba(255,255,255,0.5)\';" onmouseout="this.style.background=\'rgba(255,255,255,0.25)\';">↗</a>' +
-            '</div>';
-    }
-
-    var yt = d.youtube || { live:false, url:'' };
-    var fb = d.facebook || { live:false, url:'' };
-    var tv = d.tv || { live:false, url:'' };
-
-    var ytHref = (yt.live && yt.url) ? yt.url : ytChannel;
-    var fbHref = (fb.live && fb.url) ? fb.url : fbChannel;
-    var tvHref = (tv.live && tv.url) ? tv.url : '' ;
-
-    var anyLive = yt.live || fb.live || tv.live;
-
-    var cards = '';
-    cards += card(ytHref, '#ff0000', '▶', 'YouTube', yt.live ? 'Live now — click to watch' : 'Sermons, worship & live streams', yt.live);
-    cards += card(fbHref, '#1877f2', 'f', 'Facebook', fb.live ? 'Live now — click to watch' : 'Community, updates & live videos', fb.live);
-    if (tv.live && tv.url) {
-        cards += card(tvHref, '#2c6e49', '📺', 'TV Broadcast', 'Live now — click to watch', true);
-    }
-
-    var headline = anyLive
-        ? '<p style="color:#1e2f2e; font-size:1rem; margin-bottom:0.25rem; font-weight:600; text-align:center;">We are live — choose your channel:</p>'
-        : '<p style="color:#1e2f2e; font-size:1rem; margin-bottom:0.25rem; font-weight:600; text-align:center;">Visit our channels:</p>';
-
-    return headline +
-           '<div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;">' + cards + '</div>';
-}
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
