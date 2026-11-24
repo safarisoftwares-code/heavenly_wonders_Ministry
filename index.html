@@ -199,7 +199,8 @@
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
-            .companion-grid, .book-grid, .notice-grid, .bottom-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2rem !important; }
+            .companion-grid, .book-grid, .bottom-grid { grid-template-columns: 1fr !important; gap: 2rem !important; padding: 2rem !important; }
+
             .btn-group { grid-template-columns: repeat(2, 1fr) !important; }
             .footer-tabs { grid-template-columns: repeat(3, 1fr); }
             nav { display: none; }
@@ -493,6 +494,7 @@
 
         <!-- NOTICE + PRAISE -->
         <section id="notice-board" class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+            <div style="text-align: center; margin-bottom: 2.5rem;"><h2 style="color: #ffffff; font-size: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Life of the Church</h2><div class="gold-rule" style="margin-top: 0.75rem;"></div></div>
             <div class="notice-grid">
                 <div class="notice-card">
                     <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">Notice Board</h2>
@@ -548,6 +550,24 @@
 
                     <a href="https://www.youtube.com/@HeavenlyWondersMinistry" target="_blank" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">View All Songs on YouTube →</a>
                 </div>
+
+                <!-- IMAGE COLLECTION CARD -->
+                <div class="notice-card" id="gallery-card" style="display: flex; flex-direction: column; position: relative;">
+                    <h2 style="color: #1e2f2e; font-size: 1.5rem; margin-bottom: 0.5rem;">Image Collection</h2>
+                    <div class="gold-rule" style="margin: 0 0 1.5rem 0;"></div>
+                    <div style="position: relative; flex-grow: 1;">
+                        <div id="galleryViewport" style="overflow: hidden; border-radius: 8px;">
+                            <div id="galleryTrack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                <div class="gallery-thumb" style="aspect-ratio: 1 / 1; background: #e8f5ee; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #6b7d73; font-size: 0.7rem; text-align: center; padding: 4px;">No photos yet</div>
+                            </div>
+                        </div>
+                        <button type="button" id="galleryPrev" aria-label="Previous" style="position: absolute; left: -44px; top: 50%; transform: translateY(-50%); background: #2c6e49; color: #fff; border: 2px solid #c9a227; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 1.3rem; line-height: 1; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 10;">&lsaquo;</button>
+                        <button type="button" id="galleryNext" aria-label="Next" style="position: absolute; right: -44px; top: 50%; transform: translateY(-50%); background: #2c6e49; color: #fff; border: 2px solid #c9a227; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 1.3rem; line-height: 1; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 10;">&rsaquo;</button>
+                    </div>
+                    <div id="galleryDots" style="display: flex; justify-content: center; gap: 6px; margin-top: 0.75rem; flex-wrap: wrap;"></div>
+                    <a href="#" id="galleryViewAll" style="display: none; text-align: center; margin-top: 0.75rem; color: #2c6e49; font-weight: 600; font-size: 0.9rem; text-decoration: none;">View All Photos &rarr;</a>
+                </div>
+
             </div>
         </section>
 
@@ -714,25 +734,22 @@
         }
 
         // Notice Board
-        fetch('notices.json')
+        fetch('notices.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 const list = document.getElementById('notice-list');
                 if (!list) return;
-                list.innerHTML = `
-                    <li style="padding: 1.25rem 0; border-bottom: 1px solid #e2ede4;">
-                        <strong style="color: #2c6e49;">Sunday Service</strong><br>
-                        <span style="font-size: 0.9rem;">${data.sunday}</span>
-                    </li>
-                    <li style="padding: 1.25rem 0; border-bottom: 1px solid #e2ede4;">
-                        <strong style="color: #2c6e49;">Midweek Bible Study</strong><br>
-                        <span style="font-size: 0.9rem;">${data.midweek}</span>
-                    </li>
-                    <li style="padding: 1.25rem 0;">
-                        <strong style="color: #2c6e49;">Prayer Night</strong><br>
-                        <span style="font-size: 0.9rem;">${data.prayer}</span>
-                    </li>
-                `;
+                if (!Array.isArray(data) || data.length === 0) {
+                    list.innerHTML = '<li style="padding: 1rem 0; color: #6b7d73; font-style: italic; font-size: 0.9rem;">No notices at this time.</li>';
+                    return;
+                }
+                list.innerHTML = data.map(function(n, i) {
+                    var isLast = i === data.length - 1;
+                    return '<li style="padding: 1.25rem 0;' + (isLast ? '' : ' border-bottom: 1px solid #e2ede4;') + '">' +
+                        '<strong style="color: #2c6e49;">' + (n.title || '') + '</strong><br>' +
+                        '<span style="font-size: 0.9rem;">' + (n.text || '') + '</span>' +
+                        '</li>';
+                }).join('');
             })
             .catch(err => console.log('Notices could not be loaded', err));
 
@@ -1045,6 +1062,107 @@
       }
     })
     .catch(function(e){ console.log('Live status not loaded', e); });
+})();
+</script>
+<!-- GALLERY LIGHTBOX -->
+<div id="galleryLightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10001; align-items: center; justify-content: center;">
+    <button type="button" id="lbClose" aria-label="Close" style="position: absolute; top: 20px; right: 25px; background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer;">&times;</button>
+    <button type="button" id="lbPrev" aria-label="Previous" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;">&lsaquo;</button>
+    <img id="lbImage" src="" alt="Gallery photo" style="max-width: 90%; max-height: 85%; object-fit: contain; border-radius: 6px;">
+    <button type="button" id="lbNext" aria-label="Next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;">&rsaquo;</button>
+</div>
+<script>
+(function(){
+  var track = document.getElementById('galleryTrack');
+  var dots = document.getElementById('galleryDots');
+  var prevBtn = document.getElementById('galleryPrev');
+  var nextBtn = document.getElementById('galleryNext');
+  var viewAll = document.getElementById('galleryViewAll');
+  var lb = document.getElementById('galleryLightbox');
+  var lbImg = document.getElementById('lbImage');
+  if (!track) return;
+
+  var photos = [];
+  var page = 0;
+  var PER_PAGE = 4;
+  var lbIndex = 0;
+
+  function pages(){ return Math.max(1, Math.ceil(photos.length / PER_PAGE)); }
+
+  function renderDots(){
+    if (!dots) return;
+    dots.innerHTML = '';
+    if (pages() < 2) return;
+    for (var i=0;i<pages();i++){
+      (function(idx){
+        var d = document.createElement('span');
+        d.style.cssText = 'width:8px;height:8px;border-radius:50%;background:' + (idx===page?'#2c6e49':'#c9d6cc') + ';cursor:pointer;';
+        d.onclick = function(){ page = idx; render(); };
+        dots.appendChild(d);
+      })(i);
+    }
+  }
+
+  function openLightbox(i){
+    lbIndex = i;
+    lbImg.src = photos[lbIndex];
+    lb.style.display = 'flex';
+  }
+
+  function render(){
+    if (photos.length === 0){
+      track.innerHTML = '<div style="grid-column:1/-1; aspect-ratio:4/1; background:#e8f5ee; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#6b7d73; font-size:0.75rem;">Photos coming soon</div>';
+      if (prevBtn) prevBtn.style.display='none';
+      if (nextBtn) nextBtn.style.display='none';
+      if (viewAll) viewAll.style.display='none';
+      renderDots();
+      return;
+    }
+    var start = page * PER_PAGE;
+    var slice = photos.slice(start, start + PER_PAGE);
+    track.innerHTML = '';
+    slice.forEach(function(src, i){
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'aspect-ratio:1/1; border-radius:6px; overflow:hidden; cursor:pointer; background:#e8f5ee;';
+      var img = document.createElement('img');
+      img.src = src;
+      img.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block;';
+      img.loading = 'lazy';
+      wrap.onclick = function(){ openLightbox(start + i); };
+      wrap.appendChild(img);
+      track.appendChild(wrap);
+    });
+    if (prevBtn) prevBtn.style.display = pages() > 1 ? 'block' : 'none';
+    if (nextBtn) nextBtn.style.display = pages() > 1 ? 'block' : 'none';
+    if (viewAll) viewAll.style.display = 'block';
+    renderDots();
+  }
+
+  if (prevBtn) prevBtn.onclick = function(){ page = (page - 1 + pages()) % pages(); render(); };
+  if (nextBtn) nextBtn.onclick = function(){ page = (page + 1) % pages(); render(); };
+
+  if (lb){
+    document.getElementById('lbClose').onclick = function(){ lb.style.display='none'; };
+    lb.onclick = function(e){ if (e.target === lb) lb.style.display='none'; };
+    document.getElementById('lbPrev').onclick = function(e){ e.stopPropagation(); lbIndex = (lbIndex - 1 + photos.length) % photos.length; lbImg.src = photos[lbIndex]; };
+    document.getElementById('lbNext').onclick = function(e){ e.stopPropagation(); lbIndex = (lbIndex + 1) % photos.length; lbImg.src = photos[lbIndex]; };
+    document.addEventListener('keydown', function(e){
+      if (lb.style.display !== 'flex') return;
+      if (e.key === 'Escape') lb.style.display = 'none';
+      if (e.key === 'ArrowLeft'){ lbIndex = (lbIndex - 1 + photos.length) % photos.length; lbImg.src = photos[lbIndex]; }
+      if (e.key === 'ArrowRight'){ lbIndex = (lbIndex + 1) % photos.length; lbImg.src = photos[lbIndex]; }
+    });
+  }
+
+  fetch('get-gallery.php?t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(list){
+      if (Array.isArray(list)) {
+        photos = list.map(function(f){ return 'gallery/' + f; });
+      }
+      render();
+    })
+    .catch(function(){ render(); });
 })();
 </script>
 </body>
