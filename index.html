@@ -1046,17 +1046,17 @@
       var tvWrap = document.getElementById('tvWrap');
       if (yt && s.youtube && s.youtube.live && s.youtube.url) {
         yt.href = s.youtube.url; if (ytNew) ytNew.href = s.youtube.url;
-        var ytMode = (s.youtube.mode === 'replay') ? 'replay' : 'live'; yt.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">&#9654;</span> YouTube Live</span> ' + (ytMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9654; REPLAY</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
+        var ytMode = (s.youtube.mode === 'replay') ? 'replay' : 'live'; yt.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">&#9654;</span> YouTube Live</span> ' + (ytMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;white-space:nowrap;">&#9654; REPLAY ON</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
       }
       if (fb && s.facebook && s.facebook.live && s.facebook.url) {
         fb.href = s.facebook.url; if (fbNew) fbNew.href = s.facebook.url;
-        var fbMode = (s.facebook.mode === 'replay') ? 'replay' : 'live'; fb.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">f</span> Facebook Live</span> ' + (fbMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9654; REPLAY</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
+        var fbMode = (s.facebook.mode === 'replay') ? 'replay' : 'live'; fb.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">f</span> Facebook Live</span> ' + (fbMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;white-space:nowrap;">&#9654; REPLAY ON</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
       }
       if (tvWrap) {
         if (s.tv && s.tv.live && s.tv.url) {
           tv.href = s.tv.url; if (tvNew) tvNew.href = s.tv.url;
           tvWrap.style.display = 'flex';
-          var tvMode = (s.tv.mode === 'replay') ? 'replay' : 'live'; tv.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">&#128250;</span> TV Broadcast</span> ' + (tvMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9654; REPLAY</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
+          var tvMode = (s.tv.mode === 'replay') ? 'replay' : 'live'; tv.innerHTML = '<span style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">&#128250;</span> TV Broadcast</span> ' + (tvMode==='replay' ? '<span style="margin-left:auto;margin-right:12px;background:#c9a227;color:#1e2f2e;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;white-space:nowrap;">&#9654; REPLAY ON</span>' : '<span style="margin-left:auto;margin-right:12px;background:#fff;color:#c00;font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:bold;">&#9679; LIVE</span>');
         } else {
           tvWrap.style.display = 'none';
         }
