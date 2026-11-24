@@ -25,9 +25,9 @@ if (!is_array($auth) || empty($auth['hash']) || !password_verify($_POST['passwor
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
 $default = [
-    'youtube'  => ['live' => false, 'url' => '', 'startedAt' => null],
-    'facebook' => ['live' => false, 'url' => '', 'startedAt' => null],
-    'tv'       => ['live' => false, 'url' => '', 'startedAt' => null],
+    'youtube'  => ['live' => false, 'url' => '', 'mode' => 'live', 'startedAt' => null],
+    'facebook' => ['live' => false, 'url' => '', 'mode' => 'live', 'startedAt' => null],
+    'tv'       => ['live' => false, 'url' => '', 'mode' => 'live', 'startedAt' => null],
     'windowHours' => 24,
     'archiveUrl' => ''
 ];
@@ -48,11 +48,13 @@ if (preg_match('/^([a-z]+)_go_live$/', $action, $m) && in_array($m[1], $validSou
     if ($url === '') {
         respond(false, 'URL is required to go live on ' . $src . '.');
     }
+    $mode = (isset($_POST['mode']) && $_POST['mode'] === 'replay') ? 'replay' : 'live';
     $status[$src]['live'] = true;
     $status[$src]['url'] = $url;
+    $status[$src]['mode'] = $mode;
     $status[$src]['startedAt'] = date('c');
     file_put_contents($statusFile, json_encode($status, JSON_PRETTY_PRINT), LOCK_EX);
-    respond(true, ucfirst($src) . ' is now live.', ['status' => $status]);
+    respond(true, ucfirst($src) . ' is now ' . ($mode === 'replay' ? 'airing a replay' : 'live') . '.', ['status' => $status]);
 }
 
 if (preg_match('/^([a-z]+)_end_live$/', $action, $m) && in_array($m[1], $validSources, true)) {

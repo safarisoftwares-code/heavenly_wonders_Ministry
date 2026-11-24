@@ -140,6 +140,7 @@ button.save:hover { background: var(--action); }
             <div class="src-name"><span class="dot" id="dot-youtube"></span>YouTube</div>
             <input type="url" id="url-youtube" placeholder="https://www.youtube.com/watch?v=...">
             <div class="btn-pair">
+                <select id="mode-youtube" title="Airing mode" style="padding:6px 8px; border-radius:6px; border:1px solid #c9a227; background:#fff; color:#1e2f2e; font-size:0.85rem; margin-right:4px;"><option value="live">Live</option><option value="replay">Replay</option></select>
                 <button class="act go" id="go-youtube" onclick="goLive('youtube')">&#128308; Go Live</button>
                 <button class="act end" id="end-youtube" onclick="endLive('youtube')" disabled>&#9209; End</button>
             </div>
@@ -149,6 +150,7 @@ button.save:hover { background: var(--action); }
             <div class="src-name"><span class="dot" id="dot-facebook"></span>Facebook</div>
             <input type="url" id="url-facebook" placeholder="https://www.facebook.com/.../videos/...">
             <div class="btn-pair">
+                <select id="mode-facebook" title="Airing mode" style="padding:6px 8px; border-radius:6px; border:1px solid #c9a227; background:#fff; color:#1e2f2e; font-size:0.85rem; margin-right:4px;"><option value="live">Live</option><option value="replay">Replay</option></select>
                 <button class="act go" id="go-facebook" onclick="goLive('facebook')">&#128308; Go Live</button>
                 <button class="act end" id="end-facebook" onclick="endLive('facebook')" disabled>&#9209; End</button>
             </div>
@@ -158,6 +160,7 @@ button.save:hover { background: var(--action); }
             <div class="src-name"><span class="dot" id="dot-tv"></span>TV</div>
             <input type="url" id="url-tv" placeholder="https://tvstation.com/live  or  https://.../stream.m3u8">
             <div class="btn-pair">
+                <select id="mode-tv" title="Airing mode" style="padding:6px 8px; border-radius:6px; border:1px solid #c9a227; background:#fff; color:#1e2f2e; font-size:0.85rem; margin-right:4px;"><option value="live">Live</option><option value="replay">Replay</option></select>
                 <button class="act go" id="go-tv" onclick="goLive('tv')">&#128308; Go Live</button>
                 <button class="act end" id="end-tv" onclick="endLive('tv')" disabled>&#9209; End</button>
             </div>
@@ -320,6 +323,7 @@ function loadStatus() {
                 var src = d[k] || { live:false, url:'', startedAt:null };
                 liveState[k] = src.live;
                 document.getElementById('url-'+k).value = src.url || '';
+                var mSel = document.getElementById('mode-'+k); if (mSel) mSel.value = (src.mode === 'replay') ? 'replay' : 'live';
                 var dot = document.getElementById('dot-'+k);
                 var goBtn = document.getElementById('go-'+k);
                 var endBtn = document.getElementById('end-'+k);
@@ -364,7 +368,7 @@ function goLive(k) {
     var msg = document.getElementById('liveMsg');
     if (!url) { msg.style.color='#c0392b'; msg.textContent = 'Paste a ' + k + ' URL first.'; return; }
     msg.style.color='#6b7d73'; msg.textContent = 'Going live on ' + k + '...';
-    postStatus(k + '_go_live', { url: url }).then(function(t){
+    var mode = (document.getElementById('mode-'+k) ? document.getElementById('mode-'+k).value : 'live'); postStatus(k + '_go_live', { url: url, mode: mode }).then(function(t){
         try { var d = JSON.parse(t.replace(/^\uFEFF/, ''));
             if (d.success) { msg.style.color='#3d9970'; msg.textContent = k + ' is now live.'; loadStatus(); }
             else { msg.style.color='#c0392b'; msg.textContent = d.message || 'Error.'; }
